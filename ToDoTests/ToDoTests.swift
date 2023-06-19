@@ -112,13 +112,6 @@ final class ToDoTests: XCTestCase {
         XCTAssertEqual(todo.deadline, deadline)
     }
     
-    func testTodoItemModificationDate() throws {
-        var todo = TodoItem(text: "Test", importance: .normal)
-        let modificationDate = Date()
-        todo.modificationDate = modificationDate
-        XCTAssertEqual(todo.modificationDate, modificationDate)
-    }
-    
     func testTodoItemJsonWithoutOptionalFields() throws {
         let todo = TodoItem(text: "Test", importance: .normal)
         guard let jsonData = try? JSONSerialization.data(withJSONObject: todo.json, options: .prettyPrinted),

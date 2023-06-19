@@ -19,17 +19,17 @@ struct TodoItem {
     let text: String
     let importance: Importance
     let deadline: Date?
-    var isDone: Bool
+    let isDone: Bool
     let creationDate: Date
-    var modificationDate: Date?
+    let modificationDate: Date?
     
-    init(text: String, importance: Importance, deadline: Date? = nil, isDone: Bool = false, id: String = UUID().uuidString, modificationDate: Date? = nil) {
+    init(text: String, importance: Importance, deadline: Date? = nil, isDone: Bool = false, id: String = UUID().uuidString, creationDate: Date = Date(), modificationDate: Date? = nil) {
         self.id = id
         self.text = text
         self.importance = importance
         self.deadline = deadline
         self.isDone = isDone
-        self.creationDate = Date()
+        self.creationDate = creationDate
         self.modificationDate = modificationDate
     }
 }
@@ -47,27 +47,32 @@ let dateFormatter: DateFormatter = {
 extension TodoItem {
     static func parse(json: Any) -> TodoItem? {
         guard let jsonDict = json as? [String: Any],
-              let text = jsonDict["text"] as? String
+              let text = jsonDict["text"] as? String,
+                let id = jsonDict["id"] as? String 
         else { return nil }
-        
-        let id = jsonDict["id"] as? String ?? UUID().uuidString
+
         let isDone = jsonDict["isDone"] as? Bool ?? false
         var importance: Importance = .normal
         if let importanceString = jsonDict["importance"] as? String {
             importance = Importance(rawValue: importanceString) ?? .normal
         }
-        
+
         var deadline: Date? = nil
         if let deadlineStr = jsonDict["deadline"] as? String {
             deadline = dateFormatter.date(from: deadlineStr)
         }
-        
+
+        var creationDate: Date = Date()
+        if let creationDateStr = jsonDict["creationDate"] as? String {
+            creationDate = dateFormatter.date(from: creationDateStr) ?? Date()
+        }
+
         var modificationDate: Date? = nil
         if let modificationDateStr = jsonDict["modificationDate"] as? String {
             modificationDate = dateFormatter.date(from: modificationDateStr)
         }
-        
-        return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, modificationDate: modificationDate)
+
+        return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
     
     var json: Any {
