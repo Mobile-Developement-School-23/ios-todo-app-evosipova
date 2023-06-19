@@ -48,30 +48,30 @@ extension TodoItem {
     static func parse(json: Any) -> TodoItem? {
         guard let jsonDict = json as? [String: Any],
               let text = jsonDict["text"] as? String,
-                let id = jsonDict["id"] as? String 
+              let id = jsonDict["id"] as? String 
         else { return nil }
-
+        
         let isDone = jsonDict["isDone"] as? Bool ?? false
         var importance: Importance = .normal
         if let importanceString = jsonDict["importance"] as? String {
             importance = Importance(rawValue: importanceString) ?? .normal
         }
-
+        
         var deadline: Date? = nil
         if let deadlineStr = jsonDict["deadline"] as? String {
             deadline = dateFormatter.date(from: deadlineStr)
         }
-
+        
         var creationDate: Date = Date()
         if let creationDateStr = jsonDict["creationDate"] as? String {
             creationDate = dateFormatter.date(from: creationDateStr) ?? Date()
         }
-
+        
         var modificationDate: Date? = nil
         if let modificationDateStr = jsonDict["modificationDate"] as? String {
             modificationDate = dateFormatter.date(from: modificationDateStr)
         }
-
+        
         return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
     
@@ -97,20 +97,20 @@ extension TodoItem {
         
         return jsonDict
     }
-
-
+    
+    
     static func parse(csv: String) -> TodoItem? {
         let components = csv.components(separatedBy: ",")
         guard components.count >= 5 else { return nil }
-
+        
         let id = components[0]
         let text = components[1]
         let isDone = Bool(components[2]) ?? false
         let creationDateString = components[3]
-        let creationDate = dateFormatter.date(from: creationDateString) ?? Date()
-
+        guard let creationDate = dateFormatter.date(from: creationDateString) else { return nil }
+        
         let importance = Importance(rawValue: components[4]) ?? .normal
-
+        
         var deadline: Date?
         if components.count > 5 {
             let deadlineStr = components[5]
@@ -118,7 +118,7 @@ extension TodoItem {
                 deadline = dateFormatter.date(from: deadlineStr)
             }
         }
-
+        
         var modificationDate: Date?
         if components.count > 6 {
             let modificationDateStr = components[6]
@@ -126,21 +126,21 @@ extension TodoItem {
                 modificationDate = dateFormatter.date(from: modificationDateStr)
             }
         }
-
+        
         return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
-
-
-
+    
+    
+    
     var csv: String {
         var csvString = "\(id),\(text),\(isDone),\(dateFormatter.string(from: creationDate))"
-
+        
         if importance != .normal {
             csvString += ",\(importance.rawValue)"
         } else {
             csvString += ","
         }
-
+        
         if let deadline = deadline {
             csvString += ",\(dateFormatter.string(from: deadline))"
         } else {
@@ -153,7 +153,7 @@ extension TodoItem {
         }
         return csvString
     }
-
-
+    
+    
 }
 
