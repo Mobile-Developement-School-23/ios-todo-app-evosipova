@@ -107,7 +107,7 @@ extension TodoItem {
         let text = components[1]
         let isDone = Bool(components[2]) ?? false
         let creationDateString = components[3]
-        _ = dateFormatter.date(from: creationDateString)
+        let creationDate = dateFormatter.date(from: creationDateString) ?? Date()
 
         let importance = Importance(rawValue: components[4]) ?? .normal
 
@@ -125,9 +125,8 @@ extension TodoItem {
             }
         }
 
-        return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, modificationDate: modificationDate)
+        return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
-
 
 
     var csv: String {
