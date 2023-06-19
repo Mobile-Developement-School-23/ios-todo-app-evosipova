@@ -101,7 +101,7 @@ extension TodoItem {
 
     static func parse(csv: String) -> TodoItem? {
         let components = csv.components(separatedBy: ",")
-        guard components.count >= 6 else { return nil }
+        guard components.count >= 5 else { return nil }
 
         let id = components[0]
         let text = components[1]
@@ -112,9 +112,11 @@ extension TodoItem {
         let importance = Importance(rawValue: components[4]) ?? .normal
 
         var deadline: Date?
-        let deadlineStr = components[5]
-        if !deadlineStr.isEmpty {
-            deadline = dateFormatter.date(from: deadlineStr)
+        if components.count > 5 {
+            let deadlineStr = components[5]
+            if !deadlineStr.isEmpty {
+                deadline = dateFormatter.date(from: deadlineStr)
+            }
         }
 
         var modificationDate: Date?
@@ -127,6 +129,7 @@ extension TodoItem {
 
         return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
+
 
 
     var csv: String {
