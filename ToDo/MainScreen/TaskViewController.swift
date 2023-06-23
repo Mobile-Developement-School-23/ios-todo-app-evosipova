@@ -226,13 +226,16 @@ class TaskViewController: UIViewController {
         contentView.addSubview(titleLabel)
         contentView.addSubview(cancelButton)
         contentView.addSubview(saveButton)
+        
         contentView.addSubview(bottomView)
 
 
         
     }
     
-    
+
+
+
 //    func setupAppearance() {
 //           //updateButtonColor()
 //
