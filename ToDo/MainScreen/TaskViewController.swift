@@ -58,7 +58,7 @@ class TaskViewController: UIViewController {
             print("Error loading file: \(error)")
         }
         
-        setupAppearance()
+        //setupAppearance()
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
