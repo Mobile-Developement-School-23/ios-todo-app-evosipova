@@ -176,7 +176,7 @@ class TaskViewController: UIViewController {
             statusView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8),
             statusView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             statusView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            statusView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            statusView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
 
         ])
 
