@@ -125,6 +125,13 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
 
 
+            label1.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
+                  label1.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
+
+           // label1.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
+                  label2.leadingAnchor.constraint(equalTo: separator.leadingAnchor, constant: 16),
+
+
             toggleSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -12),
         ])
 

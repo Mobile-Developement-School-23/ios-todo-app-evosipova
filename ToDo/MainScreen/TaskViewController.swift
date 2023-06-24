@@ -54,6 +54,9 @@ class TaskViewController: UIViewController {
     let fileCache = FileCache()
     let filename = "TodoItems"
     
+    
+    let deleteButton = UIButton(type: .system)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,13 +80,15 @@ class TaskViewController: UIViewController {
         
         let textView = ResizingTextView()
         
+        
+        
         let placeholder = "Что надо сделать?"
         textView.attributedText = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         textView.backgroundColor = .white
         textView.layer.cornerRadius = 8
         textView.font = UIFont.systemFont(ofSize: 16)
-        textView.textContainerInset = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8)
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         textView.delegate = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textView)
@@ -135,7 +140,7 @@ class TaskViewController: UIViewController {
         
         
         
-        let deleteButton = UIButton(type: .system)
+        // let deleteButton = UIButton(type: .system)
         deleteButton.setTitle("Удалить", for: .normal)
         deleteButton.setTitleColor(.gray, for: .normal)
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -268,7 +273,6 @@ class TaskViewController: UIViewController {
 
 
 
-
 private func createLabeledView(withText text: String) -> UIView {
     let view = UIView()
     
@@ -318,4 +322,14 @@ extension TaskViewController: UITextViewDelegate {
             textView.attributedText = NSAttributedString(string: "Что надо сделать?", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         }
     }
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            deleteButton.setTitleColor(.gray, for: .normal)
+        } else {
+            deleteButton.setTitleColor(.red, for: .normal)
+        }
+    }
 }
+
