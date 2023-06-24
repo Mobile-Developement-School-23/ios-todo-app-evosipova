@@ -60,6 +60,8 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        statusView.backgroundColor = .blue
+
         do {
             try fileCache.loadFromFile(filename: filename)
             if let item = fileCache.items.first {
@@ -140,7 +142,6 @@ class TaskViewController: UIViewController {
 
 
 
-        // let deleteButton = UIButton(type: .system)
         deleteButton.setTitle("Удалить", for: .normal)
         deleteButton.setTitleColor(.gray, for: .normal)
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -188,7 +189,7 @@ class TaskViewController: UIViewController {
             textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
-            textView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height * 0.5),
+            textView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height * 0.48),
 
 
         ])

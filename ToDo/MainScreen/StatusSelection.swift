@@ -64,12 +64,10 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
 
 
 
-
-
-        
         separator.backgroundColor = .lightGray
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
         
         separator2.backgroundColor = .lightGray
         separator2.translatesAutoresizingMaskIntoConstraints = false
@@ -79,46 +77,36 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         
         let horizontalStackView1 = UIStackView(arrangedSubviews: [label1, segmentControl])
         horizontalStackView1.axis = .horizontal
-        horizontalStackView1.spacing = 16
         horizontalStackView1.distribution = .fillProportionally
         horizontalStackView1.alignment = .center
         horizontalStackView1.translatesAutoresizingMaskIntoConstraints = false
-        
-        horizontalStackView1.setCustomSpacing(16, after: separator)
-        
-        
+        horizontalStackView1.heightAnchor.constraint(equalToConstant: 56).isActive = true
+
+
         segmentControl.setWidth(48.9796, forSegmentAt: 0)
         segmentControl.setWidth(48.9796, forSegmentAt: 1)
         segmentControl.setWidth(48.9796, forSegmentAt: 2)
-        
-        
-        let spacerView = UIView()
-        spacerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 10).isActive = true
-        
-        
+
+
+
+        label1.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        label1.widthAnchor.constraint(equalToConstant: 218).isActive = true
+
+
         let verticalStackView = UIStackView(arrangedSubviews: [label2, dateButton])
         verticalStackView.axis = .vertical
-        verticalStackView.spacing = 10
         verticalStackView.distribution = .fillProportionally
         verticalStackView.alignment = .fill
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+
         
         
-        verticalStackView.backgroundColor = .red
-        
-        
-        let horizontalStackView2 = UIStackView(arrangedSubviews: [verticalStackView, spacerView, toggleSwitch])
+        let horizontalStackView2 = UIStackView(arrangedSubviews: [verticalStackView, toggleSwitch])
+
         horizontalStackView2.axis = .horizontal
-        horizontalStackView2.spacing = 10
         horizontalStackView2.distribution = .fill
         horizontalStackView2.alignment = .center
-        horizontalStackView2.translatesAutoresizingMaskIntoConstraints = false
-        
         horizontalStackView2.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        
-        
-        toggleSwitch.setContentHuggingPriority(.required, for: .horizontal)
-        toggleSwitch.setContentCompressionResistancePriority(.required, for: .horizontal)
+
         toggleSwitch.addTarget(self, action: #selector(toggleSwitched), for: .valueChanged)
         
         
@@ -129,46 +117,29 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         
         
         stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.setCustomSpacing(5, after: horizontalStackView1)
-        stackView.setCustomSpacing(10, after: separator)
+
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
-        //        horizontalStackView1.backgroundColor = .red
-        //
-        //        horizontalStackView2.backgroundColor = .green
-        
-        
-        
+
         
         self.addSubview(stackView)
         
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             
             
             label1.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
-            label1.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16),
+            label1.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 12),
             
             
-            label2.leadingAnchor.constraint(equalTo: separator.leadingAnchor, constant: 16),
-            
-            segmentControl.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -12),
-            
-            
-            
-            //            verticalStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 12),
-            //            verticalStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -120),
-            
+            label2.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 12),
             
             
             toggleSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -12),
