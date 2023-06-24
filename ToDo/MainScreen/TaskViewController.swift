@@ -290,10 +290,13 @@ private func createRectangleView(withText text: String) -> UIView {
 extension TaskViewController: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.attributedText.string == "Что надо сделать?" {
-            textView.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        if textView.text == "Что надо сделать?" {
+            textView.text = ""
         }
+        textView.textColor = UIColor.black
     }
+
+
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
