@@ -39,10 +39,10 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         label1.text = "Важность"
         label2.text = "Сделать до"
         datePicker.isHidden = true
-                datePicker.datePickerMode = .date
-                datePicker.preferredDatePickerStyle = .inline
-                datePicker.translatesAutoresizingMaskIntoConstraints = false
-                datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
 
         
         separator.backgroundColor = .lightGray
@@ -62,7 +62,7 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         horizontalStackView1.alignment = .center
         horizontalStackView1.translatesAutoresizingMaskIntoConstraints = false
 
-        horizontalStackView1.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        horizontalStackView1.heightAnchor.constraint(equalToConstant: 56).isActive = true
 
 
         
@@ -89,7 +89,7 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         horizontalStackView2.alignment = .center
         horizontalStackView2.translatesAutoresizingMaskIntoConstraints = false
 
-        horizontalStackView2.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        horizontalStackView2.heightAnchor.constraint(equalToConstant: 56).isActive = true
 
         
         toggleSwitch.setContentHuggingPriority(.required, for: .horizontal)
@@ -110,7 +110,10 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         stackView.setCustomSpacing(10, after: separator)
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
+
+
         
         self.addSubview(stackView)
 
@@ -124,6 +127,8 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
 
             toggleSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -12),
         ])
+
+        
     }
     
     required init?(coder: NSCoder) {

@@ -1,3 +1,10 @@
+//
+//  TaskViewController.swift
+//  ToDo
+//
+//  Created by Elizaveta Osipova on 6/22/23.
+//
+
 import Foundation
 import UIKit
 
@@ -17,7 +24,10 @@ class ResizingTextView: UITextView {
 
 
 
+
 class TaskViewController: UIViewController {
+    
+    
     let statusView: YaToDoStatusView = {
         let view = YaToDoStatusView()
         let statusSelector = StatusSelectorView()
@@ -47,7 +57,6 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         do {
             try fileCache.loadFromFile(filename: filename)
             if let item = fileCache.items.first {
@@ -58,7 +67,6 @@ class TaskViewController: UIViewController {
             print("Error loading file: \(error)")
         }
         
-        //setupAppearance()
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -85,7 +93,6 @@ class TaskViewController: UIViewController {
         view.addSubview(statusView)
         
         
-        //сделать текст жирным
         let titleLabel = UILabel()
         titleLabel.text = "Дело"
         titleLabel.textAlignment = .center
@@ -137,12 +144,18 @@ class TaskViewController: UIViewController {
         bottomView.addSubview(deleteButton)
         
         
+        
+        
         NSLayoutConstraint.activate([
             deleteButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
-            deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor)
+            deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
+            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            
+            
+            deleteButton.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor),
+            deleteButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor),
+            
         ])
-        
-        
         
         
         
@@ -164,9 +177,6 @@ class TaskViewController: UIViewController {
         ])
         
         
-        
-        
-        
         NSLayoutConstraint.activate([
             
             textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
@@ -179,29 +189,12 @@ class TaskViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            
-            
             cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             cancelButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             saveButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             
         ])
-        
-        
-        NSLayoutConstraint.activate([
-            bottomView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 8),
-            bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        ])
-        
-        NSLayoutConstraint.activate([
-            deleteButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
-            deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
-            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-        ])
-        
         
         
         NSLayoutConstraint.activate([
@@ -220,52 +213,24 @@ class TaskViewController: UIViewController {
         ])
         
         
-        
         contentView.addSubview(statusView)
         contentView.addSubview(textView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(cancelButton)
         contentView.addSubview(saveButton)
         contentView.addSubview(bottomView)
-
-
+        
         
     }
     
     
-//    func setupAppearance() {
-//           //updateButtonColor()
-//
-//           if traitCollection.userInterfaceStyle == .dark {
-//               contentView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               textView.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               textView.textColor = .white
-//               contentView.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               deleteButton.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//           } else {
-//               contentView.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               textView.backgroundColor = .white
-//              textView.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-//               contentView.backgroundColor = .white
-//               contentView.backgroundColor = .white
-//           }
-//       }
-
-//    func updateButtonColor() {
-//          if textView.text.isEmpty {
-//              navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGray
-//              deleteButton.setTitleColor(.lightGray, for: .normal)
-//          } else {
-//              navigationItem.rightBarButtonItem?.tintColor = UIColor.systemBlue
-//              deleteButton.setTitleColor(.red, for: .normal)
-//          }
-//      }
     
     @objc func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        
         if let todoItem = self.todoItem {
             fileCache.addItem(todoItem)
             do {
@@ -274,6 +239,7 @@ class TaskViewController: UIViewController {
                 print("Error saving file: \(error)")
             }
         }
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
@@ -286,15 +252,17 @@ class TaskViewController: UIViewController {
             }
             self.todoItem = nil
         }
+        dismiss(animated: true, completion: nil)
     }
+    
     
     
     private func updateUIWithTodoItem(_ todoItem: TodoItem) {
         todoTextField.text = todoItem.text
     }
-
-
-
+    
+    
+    
     
 }
 
