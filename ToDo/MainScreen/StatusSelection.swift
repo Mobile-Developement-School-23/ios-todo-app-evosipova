@@ -98,9 +98,15 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         verticalStackView.distribution = .fillProportionally
         verticalStackView.alignment = .fill
 
-        
-        
-        let horizontalStackView2 = UIStackView(arrangedSubviews: [verticalStackView, toggleSwitch])
+        verticalStackView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+
+
+
+        let spacerView = UIView()
+        spacerView.translatesAutoresizingMaskIntoConstraints = false
+
+
+        let horizontalStackView2 = UIStackView(arrangedSubviews: [verticalStackView,spacerView, toggleSwitch])
 
         horizontalStackView2.axis = .horizontal
         horizontalStackView2.distribution = .fill
@@ -141,11 +147,12 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
             
             label2.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 12),
             
-            
+
+            dateButton.leadingAnchor.constraint(equalTo: verticalStackView.leadingAnchor, constant: -12),
+        
             toggleSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -12),
         ])
-        
-        
+
     }
 
 

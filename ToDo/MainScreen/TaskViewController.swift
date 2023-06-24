@@ -60,8 +60,6 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        statusView.backgroundColor = .blue
-
         do {
             try fileCache.loadFromFile(filename: filename)
             if let item = fileCache.items.first {
