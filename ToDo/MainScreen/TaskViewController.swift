@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 
-
 class ResizingTextView: UITextView {
     override var intrinsicContentSize: CGSize {
         let textSize = self.sizeThatFits(CGSize(width: self.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
@@ -23,11 +22,7 @@ class ResizingTextView: UITextView {
 }
 
 
-
-
 class TaskViewController: UIViewController {
-
-    
     let statusView: YaToDoStatusView = {
         let view = YaToDoStatusView()
         let statusSelector = StatusSelectorView()
@@ -154,23 +149,16 @@ class TaskViewController: UIViewController {
             deleteButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
             deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
             deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-
-
             deleteButton.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor),
             deleteButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor),
 
         ])
 
 
-
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
-
-
-
-
 
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8),
@@ -182,14 +170,11 @@ class TaskViewController: UIViewController {
 
 
         NSLayoutConstraint.activate([
-
             textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
             textView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height * 0.48),
-
-
         ])
 
         NSLayoutConstraint.activate([
@@ -223,8 +208,6 @@ class TaskViewController: UIViewController {
         contentView.addSubview(cancelButton)
         contentView.addSubview(saveButton)
         contentView.addSubview(bottomView)
-
-
     }
 
 
