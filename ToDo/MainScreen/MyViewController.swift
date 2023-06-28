@@ -27,8 +27,6 @@ class MyViewController: UIViewController {
 
         let button = UIButton(type: .system)
         button.setTitle("Нажать", for: .normal)
-       // button.titleLabel?.font = UIFont.systemFont(ofSize: 100)
-
 
         button.tintColor = UIColor(red: 0.0, green: 0.48, blue: 1.0, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false

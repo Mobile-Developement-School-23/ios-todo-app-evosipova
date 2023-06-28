@@ -55,6 +55,8 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
+
         do {
             try fileCache.loadFromFile(filename: filename)
             if let item = fileCache.items.first {
@@ -313,4 +315,3 @@ extension TaskViewController: UITextViewDelegate {
         }
     }
 }
-
