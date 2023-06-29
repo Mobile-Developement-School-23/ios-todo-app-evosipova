@@ -136,6 +136,8 @@ final class ListOfTasksViewController: UIViewController {
             debugPrint(error)
         }
     }
+
+
     
     private func editTask(_ index: Int) {
         let createTaskViewController = TaskViewController()
@@ -207,6 +209,9 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
 
+
+
+
     @objc func changeImageButtonPressed(sender: UIButton) {
         let addImage = UIImage(named: "ellipse")
         let item1Image = UIImage(named: "bounds")
@@ -234,7 +239,13 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         editTask(indexPath.row)
     }
-    
+
+
+
+
+
+
+
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let doneAction = UIContextualAction(style: .normal, title: nil) { _, _, _ in
             
