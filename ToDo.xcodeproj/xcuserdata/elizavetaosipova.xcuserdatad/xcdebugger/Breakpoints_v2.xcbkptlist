@@ -3,4 +3,118 @@
    uuid = "B098E97F-C9BB-4463-8DEE-7DCE0798288A"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54F20BE4-1B49-4513-89A4-BEF57B02FDE9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo/MainScreen/TaskViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "saveButtonTapped(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "54F20BE4-1B49-4513-89A4-BEF57B02FDE9 - 75bdb681ba8674aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo.TaskViewController.saveButtonTapped(Any) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/ToDo/MainScreen/TaskViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "268"
+                  endingLineNumber = "268"
+                  offsetFromSymbolStart = "3220">
+               </Location>
+               <Location
+                  uuid = "54F20BE4-1B49-4513-89A4-BEF57B02FDE9 - 75bdb681ba8674aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo.TaskViewController.saveButtonTapped(Any) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/ToDo/MainScreen/TaskViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "268"
+                  endingLineNumber = "268"
+                  offsetFromSymbolStart = "3412">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1338C0F-F498-4E7C-8496-4EAB3C32C4BD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo/MainScreen/TaskViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "saveButtonTapped(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "262CD2FE-54B8-4B35-8BD3-9B5E8DA4EF93"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo/MainScreen/TaskViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "setupUI()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "262CD2FE-54B8-4B35-8BD3-9B5E8DA4EF93 - ed6050be7959c620"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo.TaskViewController.setupUI() -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/ToDo/MainScreen/TaskViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "260"
+                  endingLineNumber = "260"
+                  offsetFromSymbolStart = "712">
+               </Location>
+               <Location
+                  uuid = "262CD2FE-54B8-4B35-8BD3-9B5E8DA4EF93 - ed6050be7959c620"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo.TaskViewController.setupUI() -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/ToDo/MainScreen/TaskViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "260"
+                  endingLineNumber = "260"
+                  offsetFromSymbolStart = "592">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

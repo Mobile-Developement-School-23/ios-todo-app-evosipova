@@ -15,15 +15,15 @@ protocol StatusSelectionProtocol: UIView {
 
 class StatusSelectorView: UIView, StatusSelectionProtocol {
     private let label1 = UILabel()
-    private let segmentControl = UISegmentedControl(items: [ UIImage(named: "item1.svg")?.withRenderingMode(.alwaysOriginal) as Any, "нет",  UIImage(named: "item3.svg")?.withRenderingMode(.alwaysOriginal) as Any])
+    let segmentControl = UISegmentedControl(items: [ UIImage(named: "item1.svg")?.withRenderingMode(.alwaysOriginal) as Any, "нет",  UIImage(named: "item3.svg")?.withRenderingMode(.alwaysOriginal) as Any])
 
     private var datePickerHeightConstraint: NSLayoutConstraint!
 
     private let label2 = UILabel()
-    private let dateButton = UIButton(type: .system)
+     let dateButton = UIButton(type: .system)
     private let separator = UIView()
     private let separator2 = UIView()
-    private let toggleSwitch = UISwitch()
+     let toggleSwitch = UISwitch()
     private let datePicker = UIDatePicker()
 
 
@@ -31,7 +31,7 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         super.init(frame: frame)
         dateButton.isHidden = true
 
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor(named: "backSecondary")
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
 

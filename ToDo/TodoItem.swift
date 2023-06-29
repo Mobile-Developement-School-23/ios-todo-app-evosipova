@@ -16,13 +16,13 @@ enum Importance: String {
 
 struct TodoItem {
     let id: String
-    let text: String
+    var text: String
     let importance: Importance
     let deadline: Date?
     let isDone: Bool
     let creationDate: Date
-    let modificationDate: Date?
-    
+    var modificationDate: Date?
+
     init(text: String, importance: Importance, deadline: Date? = nil, isDone: Bool = false, id: String = UUID().uuidString, creationDate: Date = Date(), modificationDate: Date? = nil) {
         self.id = id
         self.text = text
@@ -72,7 +72,7 @@ extension TodoItem {
         return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
 
-    
+
     var json: Any {
         var jsonDict: [String: Any] = [
             "id": id,
@@ -80,22 +80,22 @@ extension TodoItem {
             "isDone": isDone,
             "creationDate": dateFormatter.string(from: creationDate)
         ]
-        
+
         if importance != .normal {
             jsonDict["importance"] = importance.rawValue
         }
-        
+
         if let deadline = deadline {
             jsonDict["deadline"] = dateFormatter.string(from: deadline)
         }
-        
+
         if let modificationDate = modificationDate {
             jsonDict["modificationDate"] = dateFormatter.string(from: modificationDate)
         }
-        
+
         return jsonDict
     }
-    
+
 
     static func parse(csv: String) -> TodoItem? {
         let components = csv.components(separatedBy: ",")
@@ -154,4 +154,3 @@ extension TodoItem {
 
 
 }
-
