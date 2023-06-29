@@ -21,12 +21,10 @@ class ResizingTextView: UITextView {
     }
 }
 
-
 class TaskViewController: UIViewController {
     
     weak var delegate: CreateTaskViewControllerDelegate?
-    
-    //    let textView = ResizingTextView()
+
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +33,6 @@ class TaskViewController: UIViewController {
         textView.layer.cornerRadius = 16
         textView.isScrollEnabled = false
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        //textView.text = placeholder
-        textView.text = "Что надо сделать?"
         
         textView.delegate = self
         return textView
@@ -44,7 +40,6 @@ class TaskViewController: UIViewController {
     
     lazy var statusView: YaToDoStatusView = {
         let view = YaToDoStatusView()
-        //  let statusSelector = StatusSelectorView()
         view.configure(with: statusSelector)
         return view
     }()
@@ -82,39 +77,20 @@ class TaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // print(todoItem)
+
         setupUI()
         
         textView.delegate = self
         
-        
-        //        do {
-        //            try fileCache.loadFromFile(filename: filename)
-        //            if let item = fileCache.items.first {
-        //                self.todoItem = item
-        //                updateUIWithTodoItem(item)
-        //            }
-        //        } catch {
-        //            print("Error loading file: \(error)")
-        //        }
-        
+
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        
-        //        view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.95, alpha: 1.0)
+
         view.backgroundColor =  UIColor(named: "backPrimary")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
-        
-        // let textView = ResizingTextView()
-        
-        
-        
-        let placeholder = "Что надо сделать?"
-        textView.attributedText = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
+
         textView.backgroundColor = UIColor(named: "backSecondary")
         textView.layer.cornerRadius = 8
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -300,19 +276,13 @@ class TaskViewController: UIViewController {
             deadline = dateFormatter.date(from: text)
         }
         
-        
-        print(todoItem)
-        print(textView.attributedText.string)
-        print(textView.text)
-        
+
         if let todoItem = todoItem {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, id: todoItem.id, creationDate: todoItem.creationDate, modificationDate: .now)
-            print( textView.text)
             delegate?.saveTask(item)
         } else {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, modificationDate: .now)
             delegate?.saveTask(item)
-            print(textView.attributedText.string)
         }
         
         
@@ -322,26 +292,8 @@ class TaskViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped(_ sender: Any) {
-        //        if let todoItem = self.todoItem {
-        //            fileCache.removeItem(withId: todoItem.id)
-        //            do {
-        //                try fileCache.saveToFile(filename: filename)
-        //            } catch {
-        //                print("Error saving file: \(error)")
-        //            }
-        //            self.todoItem = nil
-        //        }
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    //    private func updateUIWithTodoItem(_ todoItem: TodoItem) {
-    //        if let textField = todoTextField {
-    //            textField.text = todoItem.text
-    //        }
-    //    }
-    
-    
 }
 
 
@@ -364,24 +316,6 @@ private func createLabeledView(withText text: String) -> UIView {
 
 
 
-//private func createRectangleView(withText text: String) -> UIView {
-//    let view = UIView()
-//    view.backgroundColor = UIColor(named: "backSecondary")
-//    view.layer.cornerRadius = 14
-//
-//    let label = UILabel()
-//    label.text = text
-//    label.translatesAutoresizingMaskIntoConstraints = false
-//    view.addSubview(label)
-//
-//    NSLayoutConstraint.activate([
-//        label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//        label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-//    ])
-//
-//    return view
-//}
-
 extension TaskViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -391,29 +325,12 @@ extension TaskViewController: UITextViewDelegate {
         textView.textColor = UIColor(named: "labelPrimary")
     }
     
-    
-    
-    //    func textViewDidEndEditing(_ textView: UITextView) {
-    //        if textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-    //            textView.attributedText = NSAttributedString(string: "Что надо сделать?", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-    //        }
-    //    }
-    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty{
             textView.text =  "Что надо сделать?"
             
         }
     }
-    
-    
-    //    func textViewDidChange(_ textView: UITextView) {
-    //        if textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-    //            deleteButton.setTitleColor(.gray, for: .normal)
-    //        } else {
-    //            deleteButton.setTitleColor(.red, for: .normal)
-    //        }
-    //    }
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

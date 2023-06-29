@@ -41,8 +41,8 @@ final class ListOfTasksViewController: UIViewController {
         ])
         return headerView
     }()
-    
-    
+
+
     private let doneLabel: UILabel = {
         let doneLabel = UILabel()
         doneLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ final class ListOfTasksViewController: UIViewController {
         doneLabel.textColor = UIColor(named: "doneLabel")
         return doneLabel
     }()
-    
+
     private var boundsImageCount: Int = 0 {
         didSet {
             doneLabel.text = "Выполнено — \(boundsImageCount)"
@@ -184,33 +184,33 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         fileCache.items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.id, for: indexPath) as! CustomTableViewCell
-        
+
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "ellipse"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(changeImageButtonPressed(sender:)), for: .touchUpInside)
-        
+
         cell.contentView.addSubview(button)
-        
+
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16),
             button.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
             button.widthAnchor.constraint(equalToConstant: 30),
             button.heightAnchor.constraint(equalToConstant: 30),
         ])
-        
+
         cell.textLabel?.text = fileCache.items[indexPath.row].text
-        
+
         return cell
     }
-    
+
     @objc func changeImageButtonPressed(sender: UIButton) {
         let addImage = UIImage(named: "ellipse")
         let item1Image = UIImage(named: "bounds")
-        
+
         if let cell = sender.superview?.superview as? CustomTableViewCell,
            let indexPath = tableView.indexPath(for: cell) {
             if sender.image(for: .normal)?.pngData() == addImage?.pngData() {
@@ -226,10 +226,10 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
                 normalString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0, range: NSMakeRange(0, normalString.length))
                 cell.textLabel?.attributedText = normalString
             }
-            
+
         }
     }
-    
+
     
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         editTask(indexPath.row)
