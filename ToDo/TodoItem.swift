@@ -18,10 +18,13 @@ struct TodoItem {
     let id: String
     var text: String
     let importance: Importance
-    let deadline: Date?
+    var deadline: Date?
     var isDone: Bool
     let creationDate: Date
     var modificationDate: Date?
+
+
+
 
     init(text: String, importance: Importance, deadline: Date? = nil, isDone: Bool = false, id: String = UUID().uuidString, creationDate: Date = Date(), modificationDate: Date? = nil) {
         self.id = id
@@ -31,6 +34,7 @@ struct TodoItem {
         self.isDone = isDone
         self.creationDate = creationDate
         self.modificationDate = modificationDate
+
     }
 }
 

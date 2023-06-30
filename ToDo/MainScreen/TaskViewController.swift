@@ -24,7 +24,7 @@ class ResizingTextView: UITextView {
 class TaskViewController: UIViewController {
     
     weak var delegate: CreateTaskViewControllerDelegate?
-
+    
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class TaskViewController: UIViewController {
         textView.isScrollEnabled = false
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         textView.attributedText = NSAttributedString(string: "Что надо сделать?", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-
+        
         textView.delegate = self
         return textView
     }()
@@ -69,8 +69,6 @@ class TaskViewController: UIViewController {
     var todoItem: TodoItem? = nil
     var textChanged: ((String) -> Void)?
     
-    
-    // let fileCache = FileCache()
     let filename = "TodoItems"
     
     
@@ -78,20 +76,20 @@ class TaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         
         textView.delegate = self
         
-
+        
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-
+        
         view.backgroundColor =  UIColor(named: "backPrimary")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
-
+        
         textView.backgroundColor = UIColor(named: "backSecondary")
         textView.layer.cornerRadius = 8
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -247,7 +245,6 @@ class TaskViewController: UIViewController {
         }
         if let deadline = todoItem.deadline {
             statusSelector.dateButton.configuration?.attributedTitle = AttributedString(dateFormatter.string(from: deadline), attributes: attributeContainer)
-            //switchButton.isOn = true
             statusSelector.toggleSwitch.isOn = true
             statusSelector.dateButton.isHidden = false
         }
@@ -257,9 +254,6 @@ class TaskViewController: UIViewController {
     
     
     @objc func saveButtonTapped(_ sender: Any) {
-        
-        
-        
         var importance = Importance.normal
         switch  statusSelector.segmentControl.selectedSegmentIndex {
         case 0:
@@ -277,7 +271,7 @@ class TaskViewController: UIViewController {
             deadline = dateFormatter.date(from: text)
         }
         
-
+        
         if let todoItem = todoItem {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, id: todoItem.id, creationDate: todoItem.creationDate, modificationDate: .now)
             delegate?.saveTask(item)
@@ -285,14 +279,15 @@ class TaskViewController: UIViewController {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, modificationDate: .now)
             delegate?.saveTask(item)
         }
-        
-        
-        
+
         dismiss(animated: true, completion: nil)
         
     }
     
     @objc func deleteButtonTapped(_ sender: Any) {
+        if let todoItem = todoItem {
+            delegate?.deleteTask(todoItem.id, true)
+        }
         dismiss(animated: true, completion: nil)
     }
 }
@@ -341,4 +336,3 @@ extension TaskViewController: UITextViewDelegate {
         }
     }
 }
-

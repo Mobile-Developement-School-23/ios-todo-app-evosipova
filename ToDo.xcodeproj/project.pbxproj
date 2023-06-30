@@ -25,6 +25,8 @@
 		5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EE2A446019008A2274 /* StatusSelection.swift */; };
 		5EDD97F12A446280008A2274 /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97F02A446280008A2274 /* UIView+Pin.swift */; };
 		5EDD97F42A4C6ED9008A2274 /* ListOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */; };
+		5EDD97F62A4F64A0008A2274 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97F52A4F64A0008A2274 /* CustomTableViewCell.swift */; };
+		5EE89A142A4F9380009F4FAD /* AddTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE89A132A4F9380009F4FAD /* AddTaskCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		5EDD97EE2A446019008A2274 /* StatusSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSelection.swift; sourceTree = "<group>"; };
 		5EDD97F02A446280008A2274 /* UIView+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfTasksViewController.swift; sourceTree = "<group>"; };
+		5EDD97F52A4F64A0008A2274 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		5EE89A132A4F9380009F4FAD /* AddTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,8 @@
 				5E8D17F42A3BC21500110BAA /* FileCache.swift */,
 				5E8D17F82A3BC22300110BAA /* TodoItem.swift */,
 				5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */,
+				5EDD97F52A4F64A0008A2274 /* CustomTableViewCell.swift */,
+				5EE89A132A4F9380009F4FAD /* AddTaskCell.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -279,7 +285,9 @@
 			files = (
 				5EDD97F42A4C6ED9008A2274 /* ListOfTasksViewController.swift in Sources */,
 				5E8D17F92A3BC22300110BAA /* TodoItem.swift in Sources */,
+				5EDD97F62A4F64A0008A2274 /* CustomTableViewCell.swift in Sources */,
 				5EDD97ED2A438828008A2274 /* TaskViewController.swift in Sources */,
+				5EE89A142A4F9380009F4FAD /* AddTaskCell.swift in Sources */,
 				5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */,
 				5E8D17C92A3BC1F800110BAA /* ViewController.swift in Sources */,
 				5E8D17C52A3BC1F800110BAA /* AppDelegate.swift in Sources */,
