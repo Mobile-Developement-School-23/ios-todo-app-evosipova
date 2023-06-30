@@ -31,10 +31,14 @@ final class ListOfTasksViewController: UIViewController {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
         headerView.addSubview(doneLabel)
         headerView.addSubview(showDoneTasksButton)
+
+
         NSLayoutConstraint.activate([
             doneLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
             doneLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
             doneLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+
+
             showDoneTasksButton.topAnchor.constraint(equalTo: headerView.topAnchor),
             showDoneTasksButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
             showDoneTasksButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
@@ -197,6 +201,9 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
 
         cell.contentView.addSubview(button)
 
+
+
+
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16),
             button.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
@@ -205,6 +212,24 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
         ])
 
         cell.textLabel?.text = fileCache.items[indexPath.row].text
+        cell.textLabel?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cell.textLabel!.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 12),
+            cell.textLabel!.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+        ])
+
+
+
+        let arrowImageView = UIImageView()
+        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        arrowImageView.image = UIImage(named: "arrow")
+        cell.contentView.addSubview(arrowImageView)
+
+        NSLayoutConstraint.activate([
+            arrowImageView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -32),
+            arrowImageView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+        ])
+
 
         return cell
     }
@@ -240,21 +265,22 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
         editTask(indexPath.row)
     }
 
-
-
-
-
-
-
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let doneAction = UIContextualAction(style: .normal, title: nil) { _, _, _ in
-            
+        let doneAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completionHandler in
+            guard let self = self else { return }
+
+            if let cell = tableView.cellForRow(at: indexPath) as? CustomTableViewCell,
+               let button = cell.contentView.subviews.first(where: { $0 is UIButton }) as? UIButton {
+                self.changeImageButtonPressed(sender: button)
+            }
+            completionHandler(true)
         }
         doneAction.backgroundColor = #colorLiteral(red: 0.2260308266, green: 0.8052191138, blue: 0.4233448207, alpha: 1)
         doneAction.image = UIImage(systemName: "checkmark.circle.fill")
         return UISwipeActionsConfiguration(actions: [doneAction])
     }
-    
+
+
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in

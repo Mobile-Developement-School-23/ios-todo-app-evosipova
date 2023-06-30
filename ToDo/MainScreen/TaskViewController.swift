@@ -24,7 +24,7 @@ class ResizingTextView: UITextView {
 class TaskViewController: UIViewController {
     
     weak var delegate: CreateTaskViewControllerDelegate?
-    
+
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class TaskViewController: UIViewController {
         textView.isScrollEnabled = false
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         textView.attributedText = NSAttributedString(string: "Что надо сделать?", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
+
         textView.delegate = self
         return textView
     }()
@@ -78,20 +78,20 @@ class TaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupUI()
         
         textView.delegate = self
         
-        
+
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        
+
         view.backgroundColor =  UIColor(named: "backPrimary")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
-        
+
         textView.backgroundColor = UIColor(named: "backSecondary")
         textView.layer.cornerRadius = 8
         textView.font = UIFont.systemFont(ofSize: 16)
@@ -277,7 +277,7 @@ class TaskViewController: UIViewController {
             deadline = dateFormatter.date(from: text)
         }
         
-        
+
         if let todoItem = todoItem {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, id: todoItem.id, creationDate: todoItem.creationDate, modificationDate: .now)
             delegate?.saveTask(item)
