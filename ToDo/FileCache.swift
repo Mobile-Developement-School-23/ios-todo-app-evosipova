@@ -15,7 +15,7 @@ enum FileCacheError: Error {
 }
 
 class FileCache {
-    private(set) var items: [TodoItem] = []
+     var items: [TodoItem] = []
     
     func addItem(_ item: TodoItem) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {

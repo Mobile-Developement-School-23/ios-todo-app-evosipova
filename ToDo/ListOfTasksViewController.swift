@@ -14,7 +14,7 @@ protocol CreateTaskViewControllerDelegate: AnyObject {
 
 final class ListOfTasksViewController: UIViewController {
     private let fileCache = FileCache()
-    
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = UIColor(named: "backPrimary")
@@ -26,7 +26,7 @@ final class ListOfTasksViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
-    
+
     private lazy var headerView: UIView = {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 40))
         headerView.addSubview(doneLabel)
@@ -60,7 +60,7 @@ final class ListOfTasksViewController: UIViewController {
             doneLabel.text = "Выполнено — \(boundsImageCount)"
         }
     }
-    
+
     private lazy var showDoneTasksButton: UIButton = {
         let showDoneTasksButton = UIButton(configuration: .plain())
         showDoneTasksButton.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +75,7 @@ final class ListOfTasksViewController: UIViewController {
         }), for: .touchUpInside)
         return showDoneTasksButton
     }()
-    
+
     private lazy var addButton: UIButton = {
         let image = UIImage(named: "Add")?.withRenderingMode(.alwaysOriginal)
         let addButton = UIButton(primaryAction: UIAction(image: image, handler: { [weak self] _ in
@@ -90,21 +90,21 @@ final class ListOfTasksViewController: UIViewController {
         addButton.layer.shadowRadius = 10
         return addButton
     }()
-    
+
     private let attributeContainer: AttributeContainer = {
         var container = AttributeContainer()
         container.font = .systemFont(ofSize: 17, weight: .semibold)
         return container
     }()
-    
+
     private let defaultName = "Task"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backPrimary")
         navigationItem.title = "Мои дела"
         navigationController?.navigationBar.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
-        
+
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -112,17 +112,17 @@ final class ListOfTasksViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
         ])
-        
+
         view.addSubview(addButton)
         NSLayoutConstraint.activate([
             addButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
         ])
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.id)
-        
+
         loadTasks()
-        
-        
+
+
         NSLayoutConstraint.activate([
             doneLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
             doneLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
@@ -132,7 +132,7 @@ final class ListOfTasksViewController: UIViewController {
             showDoneTasksButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
         ])
     }
-    
+
     private func loadTasks() {
         do {
             try fileCache.loadFromFile(filename: "TodoItems")
@@ -142,7 +142,7 @@ final class ListOfTasksViewController: UIViewController {
     }
 
 
-    
+
     private func editTask(_ index: Int) {
         let createTaskViewController = TaskViewController()
         createTaskViewController.todoItem = fileCache.items[index]
@@ -162,8 +162,13 @@ extension ListOfTasksViewController: CreateTaskViewControllerDelegate {
         }
         tableView.reloadData()
     }
-    
+
     func deleteTask(_ id: String,_ reloadTable: Bool = true) {
+        // Если задача была выполнена, уменьшаем счетчик выполненных задач
+        if let toDoItem = fileCache.items.first(where: { $0.id == id }), toDoItem.isDone {
+            boundsImageCount -= 1
+        }
+
         fileCache.removeItem(withId: id)
         do {
             try fileCache.saveToFile(filename: "TodoItems")
@@ -172,6 +177,7 @@ extension ListOfTasksViewController: CreateTaskViewControllerDelegate {
         }
         if reloadTable { tableView.reloadData() }
     }
+
 }
 
 extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource {
@@ -180,13 +186,13 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
             let shape = CAShapeLayer()
             let rect = CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.size.height)
             let corners: UIRectCorner = indexPath.row == 0 ? [.topLeft, .topRight] : [.bottomRight, .bottomLeft]
-            
+
             shape.path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: 16, height: 16)).cgPath
             cell.layer.mask = shape
             cell.layer.masksToBounds = true
         }
     }
-    
+
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         fileCache.items.count
     }
@@ -244,12 +250,14 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
         if let cell = sender.superview?.superview as? CustomTableViewCell,
            let indexPath = tableView.indexPath(for: cell) {
             if sender.image(for: .normal)?.pngData() == addImage?.pngData() {
+                fileCache.items[indexPath.row].isDone = true
                 sender.setImage(item1Image, for: .normal)
                 boundsImageCount += 1
                 let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: cell.textLabel?.text ?? "")
                 attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
                 cell.textLabel?.attributedText = attributeString
             } else {
+                fileCache.items[indexPath.row].isDone = false
                 sender.setImage(addImage, for: .normal)
                 boundsImageCount -= 1
                 let normalString: NSMutableAttributedString =  NSMutableAttributedString(string: fileCache.items[indexPath.row].text)
@@ -260,7 +268,7 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
 
-    
+
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         editTask(indexPath.row)
     }
@@ -282,20 +290,20 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
 
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
             guard let self else { return }
             let toDoItem = fileCache.items[indexPath.row]
-            
+
             deleteTask(toDoItem.id, false)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
+
         deleteAction.image = UIImage(systemName: "trash.fill")
-        
+
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
+
     func tableView(_: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
         let index = indexPath.row
         let identifier = "\(index)" as NSString
@@ -320,7 +328,7 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
             return UIMenu(title: "", children: [inspectAction, deleteAction])
         })
     }
-    
+
     func tableView(_: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         guard let identifier = configuration.identifier as? String, let index = Int(identifier) else { return }
         animator.addCompletion {
@@ -342,4 +350,3 @@ class CustomTableViewCell: UITableViewCell {
         layer.masksToBounds = true
     }
 }
-
