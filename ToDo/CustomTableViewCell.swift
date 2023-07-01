@@ -59,7 +59,7 @@ final class CustomTableViewCell: UITableViewCell {
         mainStack.distribution = .fill
 
 
-      //  mainStack.backgroundColor = .blue
+     //  mainStack.backgroundColor = .blue
         return mainStack
     }()
 
@@ -70,7 +70,7 @@ final class CustomTableViewCell: UITableViewCell {
         deadlineStack.isHidden = true
 
 
-       // deadlineStack.backgroundColor = .green
+      // deadlineStack.backgroundColor = .green
         return deadlineStack
     }()
 
@@ -161,14 +161,26 @@ final class CustomTableViewCell: UITableViewCell {
 
     func setUI(_ toDoItem: TodoItem) {
         textTaskLabel.text = toDoItem.text
+//        if let deadline = toDoItem.deadline {
+//            deadlineLabel.text = dateFormatter.string(from: deadline)
+//            deadlineStack.isHidden = true
+//          //  deadlineStack.isHidden = false
+//        } else {
+//           deadlineStack.isHidden = false
+//          //  deadlineStack.isHidden = true
+//        }
+
+
         if let deadline = toDoItem.deadline {
             deadlineLabel.text = dateFormatter.string(from: deadline)
-            //deadlineStack.isHidden = true
-            deadlineStack.isHidden = false
+            deadlineStack.isHidden = false // Показываем стэк
+            calendarView.isHidden = false // Показываем иконку календаря
         } else {
-           //deadlineStack.isHidden = false
-            deadlineStack.isHidden = true
+            deadlineStack.isHidden = true // Скрываем стэк
+            calendarView.isHidden = true // Скрываем иконку календаря
         }
+
+
         switch toDoItem.importance {
         case .important:
             importanceImage.isHidden = false
