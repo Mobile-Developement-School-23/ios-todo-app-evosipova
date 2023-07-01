@@ -15,13 +15,13 @@ protocol TaskCellDelegate: AnyObject {
 
 final class CustomTableViewCell: UITableViewCell {
     static let id = "CustomTableViewCell"
-    
+
     var showDoneTasks = true
-    
+
     var corners: UIRectCorner = []
     var toDoItem: TodoItem?
     weak var delegate: TaskCellDelegate?
-    
+
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMM"
@@ -39,19 +39,19 @@ final class CustomTableViewCell: UITableViewCell {
             toDoItem.isDone = !toDoItem.isDone
             setDone()
             delegate?.changeToDoItem(toDoItem)
-            
+
         }), for: .touchUpInside)
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         return checkBox
     }()
-    
+
     private let arrow: UIImageView = {
         let arrow = UIImageView(image: UIImage(named: "arrow"))
         arrow.contentMode = .center
         arrow.translatesAutoresizingMaskIntoConstraints = false
         return arrow
     }()
-    
+
     private lazy var mainStack: UIStackView = {
         let mainStack = UIStackView(arrangedSubviews: [importanceImage, textStack])
         mainStack.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ final class CustomTableViewCell: UITableViewCell {
       //  mainStack.backgroundColor = .blue
         return mainStack
     }()
-    
+
     private lazy var deadlineStack: UIStackView = {
         let deadlineStack = UIStackView(arrangedSubviews: [calendarView, deadlineLabel])
         deadlineStack.alignment = .leading
@@ -73,34 +73,34 @@ final class CustomTableViewCell: UITableViewCell {
        // deadlineStack.backgroundColor = .green
         return deadlineStack
     }()
-    
+
     private lazy var textStack: UIStackView = {
         let textStack = UIStackView(arrangedSubviews: [textTaskLabel, deadlineStack])
         textStack.axis = .vertical
         textStack.alignment = .leading
         return textStack
     }()
-    
+
     private let textTaskLabel: UILabel = {
         let textTaskLabel = UILabel()
         textTaskLabel.numberOfLines = 3
         return textTaskLabel
     }()
-    
+
     private let importanceImage: UIImageView = {
         let importanceImage = UIImageView()
         importanceImage.contentMode = .center
         importanceImage.isHidden = true
         return importanceImage
     }()
-    
+
     private let deadlineLabel: UILabel = {
         let deadlineLabel = UILabel()
         deadlineLabel.textColor = .black
         deadlineLabel.font = UIFont.systemFont(ofSize: 15)
         return deadlineLabel
     }()
-    
+
     private let calendarView: UIImageView = {
         let calendarView = UIImageView()
         calendarView.contentMode = .center
@@ -118,12 +118,12 @@ final class CustomTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
     }
-    
+
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         let shape = CAShapeLayer()
@@ -132,19 +132,19 @@ final class CustomTableViewCell: UITableViewCell {
         layer.mask = shape
         layer.masksToBounds = true
     }
-    
+
     private func setupConstraints() {
         contentView.addSubview(checkBox)
         contentView.addSubview(mainStack)
         contentView.addSubview(arrow)
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 56),
-            
+
             checkBox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             checkBox.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             checkBox.heightAnchor.constraint(equalToConstant: 24),
             checkBox.widthAnchor.constraint(equalToConstant: 24),
-            
+
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             mainStack.leadingAnchor.constraint(equalTo: checkBox.trailingAnchor, constant: 12),
@@ -166,7 +166,7 @@ final class CustomTableViewCell: UITableViewCell {
 //        } else {
 //            deadlineStack.isHidden = true
 //        }
-    
+
     func setUI(_ toDoItem: TodoItem) {
         textTaskLabel.text = toDoItem.text
         if let deadline = toDoItem.deadline {
@@ -190,7 +190,7 @@ final class CustomTableViewCell: UITableViewCell {
         self.toDoItem = toDoItem
         setDone()
     }
-    
+
     private func setDone() {
         guard let toDoItem else { return }
         if toDoItem.isDone {
@@ -214,5 +214,4 @@ final class CustomTableViewCell: UITableViewCell {
         }
     }
 }
-
 
