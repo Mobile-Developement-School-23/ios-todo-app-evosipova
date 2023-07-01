@@ -15,9 +15,8 @@ protocol TaskCellDelegate: AnyObject {
 
 final class CustomTableViewCell: UITableViewCell {
     static let id = "CustomTableViewCell"
-
+    
     var showDoneTasks = true
-
     
     var corners: UIRectCorner = []
     var toDoItem: TodoItem?
@@ -25,17 +24,16 @@ final class CustomTableViewCell: UITableViewCell {
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "d MMM"
         return formatter
     }()
-    
+
+
     private lazy var checkBox: UIButton = {
         let image = UIImage(named: "arrow")
         let checkBox = UIButton()
         checkBox.setImage(image, for: .normal)
-        checkBox.tintColor = UIColor(named: "checkBox")
+        checkBox.tintColor = UIColor(named: "backPrimary")
         checkBox.addAction(UIAction(handler: { [weak self] _ in
             guard let self, var toDoItem else { return }
             toDoItem.isDone = !toDoItem.isDone
@@ -59,6 +57,9 @@ final class CustomTableViewCell: UITableViewCell {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         mainStack.spacing = 2
         mainStack.distribution = .fill
+
+
+      //  mainStack.backgroundColor = .blue
         return mainStack
     }()
     
@@ -67,6 +68,9 @@ final class CustomTableViewCell: UITableViewCell {
         deadlineStack.alignment = .leading
         deadlineStack.spacing = 2
         deadlineStack.isHidden = true
+
+
+       // deadlineStack.backgroundColor = .green
         return deadlineStack
     }()
     
@@ -92,7 +96,7 @@ final class CustomTableViewCell: UITableViewCell {
     
     private let deadlineLabel: UILabel = {
         let deadlineLabel = UILabel()
-        deadlineLabel.textColor = .lightGray
+        deadlineLabel.textColor = .black
         deadlineLabel.font = UIFont.systemFont(ofSize: 15)
         return deadlineLabel
     }()
@@ -100,11 +104,16 @@ final class CustomTableViewCell: UITableViewCell {
     private let calendarView: UIImageView = {
         let calendarView = UIImageView()
         calendarView.contentMode = .center
-        calendarView.image =  UIImage(named: "calendar")
-        calendarView.tintColor = UIColor(named: "checkBox")
+        calendarView.image = #imageLiteral(resourceName: "calendar").withRenderingMode(.alwaysTemplate)
+        calendarView.tintColor = UIColor(named: "labelPrimary")
+
         return calendarView
     }()
-    
+
+
+
+
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
@@ -140,20 +149,32 @@ final class CustomTableViewCell: UITableViewCell {
             mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             mainStack.leadingAnchor.constraint(equalTo: checkBox.trailingAnchor, constant: 12),
             mainStack.trailingAnchor.constraint(equalTo: arrow.leadingAnchor, constant: -16),
-            
+
             arrow.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             arrow.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             arrow.heightAnchor.constraint(equalToConstant: 12),
             arrow.widthAnchor.constraint(equalToConstant: 8),
         ])
     }
+
+
+//    func setUI(_ toDoItem: TodoItem) {
+//        textTaskLabel.text = toDoItem.text
+//        if let deadline = toDoItem.deadline {
+//            deadlineLabel.text = dateFormatter.string(from: deadline)
+//            deadlineStack.isHidden = false
+//        } else {
+//            deadlineStack.isHidden = true
+//        }
     
     func setUI(_ toDoItem: TodoItem) {
         textTaskLabel.text = toDoItem.text
         if let deadline = toDoItem.deadline {
             deadlineLabel.text = dateFormatter.string(from: deadline)
+            //deadlineStack.isHidden = true
             deadlineStack.isHidden = false
         } else {
+           //deadlineStack.isHidden = false
             deadlineStack.isHidden = true
         }
         switch toDoItem.importance {

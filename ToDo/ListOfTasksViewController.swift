@@ -16,10 +16,10 @@ protocol CreateTaskViewControllerDelegate: AnyObject {
 
 final class ListOfTasksViewController: UIViewController {
     private let fileCache = FileCache()
-
+    
     var showDoneTasks = false
-
-
+    
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = UIColor(named: "backPrimary")
@@ -57,12 +57,12 @@ final class ListOfTasksViewController: UIViewController {
     
     private lazy var showDoneTasksButton: UIButton = {
         let showDoneTasksButton = UIButton(configuration: .plain())
-
-
-
+        
+        
+        
         showDoneTasksButton.translatesAutoresizingMaskIntoConstraints = false
         showDoneTasksButton.configuration?.attributedTitle = AttributedString("Показать", attributes: attributeContainer)
-
+        
         showDoneTasksButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             self.showDoneTasks.toggle()
@@ -74,8 +74,8 @@ final class ListOfTasksViewController: UIViewController {
             self.tableView.reloadData()
         }), for: .touchUpInside)
         return showDoneTasksButton
-
-
+        
+        
     }()
     
     private lazy var addButton: UIButton = {
@@ -122,9 +122,9 @@ final class ListOfTasksViewController: UIViewController {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.id)
         
         loadTasks()
-
+        
         tableView.register(AddTaskCell.self, forCellReuseIdentifier: AddTaskCell.id)
-
+        
     }
     
     private func loadTasks() {
@@ -157,7 +157,7 @@ extension ListOfTasksViewController: CreateTaskViewControllerDelegate {
         } catch {
             debugPrint(error)
         }
-        updateDoneTasks() // Добавить эту строку
+        updateDoneTasks()
         tableView.reloadData()
     }
     
@@ -171,7 +171,7 @@ extension ListOfTasksViewController: CreateTaskViewControllerDelegate {
         updateDoneTasks()
         if reloadTable { tableView.reloadData() }
     }
-
+    
     
 }
 
@@ -198,8 +198,8 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
             return fileCache.items.filter { !$0.isDone }.count + 1
         }
     }
-
-
+    
+    
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
