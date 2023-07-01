@@ -1,0 +1,22 @@
+PODS:
+  - CocoaLumberjack (3.8.0):
+    - CocoaLumberjack/Core (= 3.8.0)
+  - CocoaLumberjack/Core (3.8.0)
+  - SwiftLint (0.52.3)
+
+DEPENDENCIES:
+  - CocoaLumberjack
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - CocoaLumberjack
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 78abfb691154e2a9df8ded4350d504ee19d90732
+  SwiftLint: 76ec9c62ad369cff2937474cb34c9af3fa270b7b
+
+PODFILE CHECKSUM: b875db3065e54ee15eae7fef57a1a2d115d35769
+
+COCOAPODS: 1.12.1

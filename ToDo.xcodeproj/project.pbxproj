@@ -25,6 +25,9 @@
 		5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EE2A446019008A2274 /* StatusSelection.swift */; };
 		5EDD97F12A446280008A2274 /* UIView+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97F02A446280008A2274 /* UIView+Pin.swift */; };
 		5EDD97F42A4C6ED9008A2274 /* ListOfTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */; };
+		635F762F64AD12037256A881 /* Pods_ToDo_ToDoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F8B7A92D9EE9CF226F0AD9 /* Pods_ToDo_ToDoUITests.framework */; };
+		93B7557DD391904ADDDF80D7 /* Pods_ToDoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DECF49BE107DAC8E11E3B62 /* Pods_ToDoTests.framework */; };
+		EE1EB9E3CFD0B46E5DE433E6 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB5D5D5A1A900A1AEC3AD4D /* Pods_ToDo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AB5D5D5A1A900A1AEC3AD4D /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3496569F1E827FB1271DB068 /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
+		3B616C21B51DD41F1E478A3E /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
+		50F8B7A92D9EE9CF226F0AD9 /* Pods_ToDo_ToDoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo_ToDoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E8D17C12A3BC1F800110BAA /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E8D17C42A3BC1F800110BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E8D17C62A3BC1F800110BAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +70,11 @@
 		5EDD97EE2A446019008A2274 /* StatusSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSelection.swift; sourceTree = "<group>"; };
 		5EDD97F02A446280008A2274 /* UIView+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Pin.swift"; sourceTree = "<group>"; };
 		5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfTasksViewController.swift; sourceTree = "<group>"; };
+		6337A3DE6235989E179C6C3A /* Pods-ToDo-ToDoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-ToDoUITests.debug.xcconfig"; path = "Target Support Files/Pods-ToDo-ToDoUITests/Pods-ToDo-ToDoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6DECF49BE107DAC8E11E3B62 /* Pods_ToDoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		736B5C33CD4B0B166F65B9A2 /* Pods-ToDoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoTests.release.xcconfig"; path = "Target Support Files/Pods-ToDoTests/Pods-ToDoTests.release.xcconfig"; sourceTree = "<group>"; };
+		8F87EBB5E843032DB5D7B5F7 /* Pods-ToDo-ToDoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-ToDoUITests.release.xcconfig"; path = "Target Support Files/Pods-ToDo-ToDoUITests/Pods-ToDo-ToDoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EC264300AE3F25BA11E44B92 /* Pods-ToDoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoTests.debug.xcconfig"; path = "Target Support Files/Pods-ToDoTests/Pods-ToDoTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE1EB9E3CFD0B46E5DE433E6 /* Pods_ToDo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93B7557DD391904ADDDF80D7 /* Pods_ToDoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,18 +98,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635F762F64AD12037256A881 /* Pods_ToDo_ToDoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24DC159605F20AAFDC8CDBA3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0AB5D5D5A1A900A1AEC3AD4D /* Pods_ToDo.framework */,
+				50F8B7A92D9EE9CF226F0AD9 /* Pods_ToDo_ToDoUITests.framework */,
+				6DECF49BE107DAC8E11E3B62 /* Pods_ToDoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B84F08CB1EFBB2B328A8D2A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B616C21B51DD41F1E478A3E /* Pods-ToDo.debug.xcconfig */,
+				3496569F1E827FB1271DB068 /* Pods-ToDo.release.xcconfig */,
+				6337A3DE6235989E179C6C3A /* Pods-ToDo-ToDoUITests.debug.xcconfig */,
+				8F87EBB5E843032DB5D7B5F7 /* Pods-ToDo-ToDoUITests.release.xcconfig */,
+				EC264300AE3F25BA11E44B92 /* Pods-ToDoTests.debug.xcconfig */,
+				736B5C33CD4B0B166F65B9A2 /* Pods-ToDoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		5E8D17B82A3BC1F800110BAA = {
 			isa = PBXGroup;
 			children = (
 				5E8D17C32A3BC1F800110BAA /* ToDo */,
 				5E8D17DA2A3BC1FA00110BAA /* ToDoTests */,
 				5E8D17C22A3BC1F800110BAA /* Products */,
+				2B84F08CB1EFBB2B328A8D2A /* Pods */,
+				24DC159605F20AAFDC8CDBA3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,9 +193,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E8D17EB2A3BC1FA00110BAA /* Build configuration list for PBXNativeTarget "ToDo" */;
 			buildPhases = (
+				6703DFD1EF4F4526EECBEED4 /* [CP] Check Pods Manifest.lock */,
 				5E8D17BD2A3BC1F800110BAA /* Sources */,
 				5E8D17BE2A3BC1F800110BAA /* Frameworks */,
 				5E8D17BF2A3BC1F800110BAA /* Resources */,
+				87F8A13F24D5B6C29B1CF731 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,6 +212,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E8D17EE2A3BC1FA00110BAA /* Build configuration list for PBXNativeTarget "ToDoTests" */;
 			buildPhases = (
+				6677A17B9B26BA7A2F276C7A /* [CP] Check Pods Manifest.lock */,
 				5E8D17D32A3BC1FA00110BAA /* Sources */,
 				5E8D17D42A3BC1FA00110BAA /* Frameworks */,
 				5E8D17D52A3BC1FA00110BAA /* Resources */,
@@ -188,9 +231,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E8D17F12A3BC1FA00110BAA /* Build configuration list for PBXNativeTarget "ToDoUITests" */;
 			buildPhases = (
+				9D114B9A14DC9F386A421BF1 /* [CP] Check Pods Manifest.lock */,
 				5E8D17DD2A3BC1FA00110BAA /* Sources */,
 				5E8D17DE2A3BC1FA00110BAA /* Frameworks */,
 				5E8D17DF2A3BC1FA00110BAA /* Resources */,
+				3E54F39CF239DBE96F9AE1E3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -271,6 +316,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3E54F39CF239DBE96F9AE1E3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo-ToDoUITests/Pods-ToDo-ToDoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo-ToDoUITests/Pods-ToDo-ToDoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToDo-ToDoUITests/Pods-ToDo-ToDoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6677A17B9B26BA7A2F276C7A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6703DFD1EF4F4526EECBEED4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87F8A13F24D5B6C29B1CF731 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D114B9A14DC9F386A421BF1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDo-ToDoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5E8D17BD2A3BC1F800110BAA /* Sources */ = {
@@ -460,6 +608,7 @@
 		};
 		5E8D17EC2A3BC1FA00110BAA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B616C21B51DD41F1E478A3E /* Pods-ToDo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -488,6 +637,7 @@
 		};
 		5E8D17ED2A3BC1FA00110BAA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3496569F1E827FB1271DB068 /* Pods-ToDo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -516,6 +666,7 @@
 		};
 		5E8D17EF2A3BC1FA00110BAA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC264300AE3F25BA11E44B92 /* Pods-ToDoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -536,6 +687,7 @@
 		};
 		5E8D17F02A3BC1FA00110BAA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 736B5C33CD4B0B166F65B9A2 /* Pods-ToDoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -556,6 +708,7 @@
 		};
 		5E8D17F22A3BC1FA00110BAA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6337A3DE6235989E179C6C3A /* Pods-ToDo-ToDoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -574,6 +727,7 @@
 		};
 		5E8D17F32A3BC1FA00110BAA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F87EBB5E843032DB5D7B5F7 /* Pods-ToDo-ToDoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
