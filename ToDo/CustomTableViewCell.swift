@@ -24,7 +24,7 @@ final class CustomTableViewCell: UITableViewCell {
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "d MMM yyyy"
         return formatter
     }()
     
@@ -58,7 +58,6 @@ final class CustomTableViewCell: UITableViewCell {
         horizontalStack.spacing = 2
         horizontalStack.distribution = .fill
         
-        //  mainStack.backgroundColor = .blue
         return horizontalStack
     }()
     
@@ -66,10 +65,8 @@ final class CustomTableViewCell: UITableViewCell {
         let deadlineStack = UIStackView(arrangedSubviews: [calendarView, deadlineLabel])
         deadlineStack.alignment = .leading
         deadlineStack.spacing = 2
-        deadlineStack.isHidden = true
+        deadlineStack.isHidden = false
         
-        
-        // deadlineStack.backgroundColor = .green
         return deadlineStack
     }()
     
@@ -83,8 +80,10 @@ final class CustomTableViewCell: UITableViewCell {
     private let taskLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.numberOfLines = 3
+        
         return textLabel
     }()
+    
     
     private let imgImportance: UIImageView = {
         let imgImportance = UIImageView()
@@ -151,29 +150,19 @@ final class CustomTableViewCell: UITableViewCell {
             arrow.heightAnchor.constraint(equalToConstant: 12),
             arrow.widthAnchor.constraint(equalToConstant: 8),
         ])
-        
-//        horizontalStack.backgroundColor = .green
-//        deadlineStack.backgroundColor = .blue
-//        calendarView.backgroundColor = .red
     }
-    
     
     
     func setUI(_ todoItem: TodoItem) {
         taskLabel.text = todoItem.text
-        
-        // print("Deadline: \(todoItem.deadline)")
-        
-        
         if let deadline = todoItem.deadline {
             deadlineLabel.text = dateFormatter.string(from:  deadline)
-            deadlineStack.isHidden = false // Показываем стэк
-            calendarView.isHidden = false // Показываем иконку календаря
+            deadlineStack.isHidden = false
         } else {
-            deadlineStack.isHidden = true // Скрываем стэк
-            calendarView.isHidden = true // Скрываем иконку календаря
+            deadlineStack.isHidden = true 
         }
         
+        deadlineLabel.textColor = UIColor(named: "doneLabel")
         
         switch todoItem.importance {
         case .important:
@@ -187,9 +176,6 @@ final class CustomTableViewCell: UITableViewCell {
         }
         self.todoItem = todoItem
         setDone()
-        
-        // print("Deadline: \(todoItem.deadline)")
-        
     }
     
     private func setDone() {

@@ -96,24 +96,24 @@ final class ListOfTasksViewController: UIViewController {
         return container
     }()
     
-
+    
     override func viewDidLoad() {
-           super.viewDidLoad()
-           setupView()
-           loadTasks()
-           registerCells()
-       }
-
-       private func setupView() {
-           view.backgroundColor = UIColor(named: "backPrimary")
-           navigationItem.title = "Мои дела"
-           navigationController?.navigationBar.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
-
-           setupTableView()
-           setupAddButton()
-       }
-
-
+        super.viewDidLoad()
+        setupView()
+        loadTasks()
+        registerCells()
+    }
+    
+    private func setupView() {
+        view.backgroundColor = UIColor(named: "backPrimary")
+        navigationItem.title = "Мои дела"
+        navigationController?.navigationBar.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
+        
+        setupTableView()
+        setupAddButton()
+    }
+    
+    
     private func loadTasks() {
         do {
             try fileCache.loadFromFile(filename: "TodoItems")
@@ -121,12 +121,12 @@ final class ListOfTasksViewController: UIViewController {
             debugPrint(error)
         }
     }
-
+    
     private func registerCells() {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.id)
         tableView.register(AddTaskCell.self, forCellReuseIdentifier: AddTaskCell.id)
     }
-
+    
     private func editTask(_ index: Int) {
         let createTaskViewController = TaskViewController()
         createTaskViewController.todoItem = fileCache.items[index]
@@ -134,24 +134,24 @@ final class ListOfTasksViewController: UIViewController {
         print(fileCache.items[index])
         present(createTaskViewController, animated: true)
     }
-
+    
     private func setupTableView() {
-           view.addSubview(tableView)
-           NSLayoutConstraint.activate([
-               tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-               tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-               tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-               tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-           ])
-       }
-
-       private func setupAddButton() {
-           view.addSubview(addButton)
-           NSLayoutConstraint.activate([
-               addButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-               addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-           ])
-       }
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
+    }
+    
+    private func setupAddButton() {
+        view.addSubview(addButton)
+        NSLayoutConstraint.activate([
+            addButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+        ])
+    }
 }
 
 extension ListOfTasksViewController: TaskViewControllerDelegate {

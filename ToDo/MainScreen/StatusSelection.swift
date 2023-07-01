@@ -157,7 +157,8 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
             dateComponents.day = 1
             let nextDate = Calendar.current.date(byAdding: dateComponents, to: Date())
             let formatter = DateFormatter()
-            formatter.dateStyle = .medium
+           // formatter.dateStyle = .medium
+            formatter.dateFormat = "d MMM yyyy"
             dateButton.setTitle(formatter.string(from: nextDate!), for: .normal)
             datePicker.date = nextDate!
         }
@@ -165,7 +166,8 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
     
     @objc func dateChanged(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
+        formatter.dateFormat = "d MMM yyyy"
+        //formatter.dateStyle = .medium
         dateButton.setTitle(formatter.string(from: sender.date), for: .normal)
     }
 }

@@ -22,10 +22,10 @@ struct TodoItem {
     var isDone: Bool
     let creationDate: Date
     var modificationDate: Date?
-
-
-
-
+    
+    
+    
+    
     init(text: String, importance: Importance, deadline: Date? = nil, isDone: Bool = false, id: String = UUID().uuidString, creationDate: Date = Date(), modificationDate: Date? = nil) {
         self.id = id
         self.text = text
@@ -34,14 +34,14 @@ struct TodoItem {
         self.isDone = isDone
         self.creationDate = creationDate
         self.modificationDate = modificationDate
-
+        
     }
 }
 
 
-let dateFormatter: DateFormatter = {
+private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    formatter.dateFormat = "d MMM yyyy"
     return formatter
 }()
 
@@ -54,27 +54,27 @@ extension TodoItem {
               let creationDateStr = jsonDict["creationDate"] as? String,
               let creationDate = dateFormatter.date(from: creationDateStr)
         else { return nil }
-
+        
         let isDone = jsonDict["isDone"] as? Bool ?? false
         var importance: Importance = .normal
         if let importanceString = jsonDict["importance"] as? String {
             importance = Importance(rawValue: importanceString) ?? .normal
         }
-
+        
         var deadline: Date? = nil
         if let deadlineStr = jsonDict["deadline"] as? String {
             deadline = dateFormatter.date(from: deadlineStr)
         }
-
+        
         var modificationDate: Date? = nil
         if let modificationDateStr = jsonDict["modificationDate"] as? String {
             modificationDate = dateFormatter.date(from: modificationDateStr)
         }
-
+        
         return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
-
-
+    
+    
     var json: Any {
         var jsonDict: [String: Any] = [
             "id": id,
@@ -82,35 +82,35 @@ extension TodoItem {
             "isDone": isDone,
             "creationDate": dateFormatter.string(from: creationDate)
         ]
-
+        
         if importance != .normal {
             jsonDict["importance"] = importance.rawValue
         }
-
+        
         if let deadline = deadline {
             jsonDict["deadline"] = dateFormatter.string(from: deadline)
         }
-
+        
         if let modificationDate = modificationDate {
             jsonDict["modificationDate"] = dateFormatter.string(from: modificationDate)
         }
-
+        
         return jsonDict
     }
-
-
+    
+    
     static func parse(csv: String) -> TodoItem? {
         let components = csv.components(separatedBy: ",")
         guard components.count >= 5 else { return nil }
-
+        
         let id = components[0]
         let text = components[1]
         let isDone = Bool(components[2]) ?? false
         let creationDateString = components[3]
         guard let creationDate = dateFormatter.date(from: creationDateString) else { return nil }
-
+        
         let importance = Importance(rawValue: components[4]) ?? .normal
-
+        
         var deadline: Date?
         if components.count > 5 {
             let deadlineStr = components[5]
@@ -118,7 +118,7 @@ extension TodoItem {
                 deadline = dateFormatter.date(from: deadlineStr)
             }
         }
-
+        
         var modificationDate: Date?
         if components.count > 6 {
             let modificationDateStr = components[6]
@@ -126,21 +126,21 @@ extension TodoItem {
                 modificationDate = dateFormatter.date(from: modificationDateStr)
             }
         }
-
+        
         return TodoItem(text: text, importance: importance, deadline: deadline, isDone: isDone, id: id, creationDate: creationDate, modificationDate: modificationDate)
     }
-
-
-
+    
+    
+    
     var csv: String {
         var csvString = "\(id),\(text),\(isDone),\(dateFormatter.string(from: creationDate))"
-
+        
         if importance != .normal {
             csvString += ",\(importance.rawValue)"
         } else {
             csvString += ","
         }
-
+        
         if let deadline = deadline {
             csvString += ",\(dateFormatter.string(from: deadline))"
         } else {
@@ -153,6 +153,6 @@ extension TodoItem {
         }
         return csvString
     }
-
-
+    
+    
 }
