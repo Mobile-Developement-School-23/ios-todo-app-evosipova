@@ -152,9 +152,9 @@ final class CustomTableViewCell: UITableViewCell {
             arrow.widthAnchor.constraint(equalToConstant: 8),
         ])
         
-        horizontalStack.backgroundColor = .green
-        deadlineStack.backgroundColor = .blue
-        calendarView.backgroundColor = .red
+//        horizontalStack.backgroundColor = .green
+//        deadlineStack.backgroundColor = .blue
+//        calendarView.backgroundColor = .red
     }
     
     
