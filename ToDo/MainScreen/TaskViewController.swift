@@ -1,6 +1,12 @@
+//
+//  TaskViewController.swift
+//  ToDo
+//
+//  Created by Elizaveta Osipova on 6/22/23.
+//
+
 import Foundation
 import UIKit
-
 
 
 class ResizingTextView: UITextView {
@@ -15,16 +21,35 @@ class ResizingTextView: UITextView {
     }
 }
 
-
-
 class TaskViewController: UIViewController {
-    let statusView: YaToDoStatusView = {
+    
+    weak var delegate: TaskViewControllerDelegate?
+    
+    private lazy var textView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = UIColor(named: "backPrimary")
+        textView.font = UIFont.systemFont(ofSize: 17)
+        textView.layer.cornerRadius = 16
+        textView.isScrollEnabled = false
+        textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        textView.attributedText = NSAttributedString(string: "Что надо сделать?", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        textView.delegate = self
+        return textView
+    }()
+    
+    lazy var statusView: YaToDoStatusView = {
         let view = YaToDoStatusView()
-        let statusSelector = StatusSelectorView()
         view.configure(with: statusSelector)
         return view
     }()
     
+    
+    private let statusSelector: StatusSelectorView = {
+        let statusSelector = StatusSelectorView()
+        return statusSelector
+    }()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -40,42 +65,40 @@ class TaskViewController: UIViewController {
     
     @IBOutlet weak var todoTextField: UITextField!
     
-    var todoItem: TodoItem?
-    let fileCache = FileCache()
+    
+    var todoItem: TodoItem? = nil
+    var textChanged: ((String) -> Void)?
+    
     let filename = "TodoItems"
+    
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM yyyy"
+        return formatter
+    }()
+    
+    let deleteButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
         
-        do {
-            try fileCache.loadFromFile(filename: filename)
-            if let item = fileCache.items.first {
-                self.todoItem = item
-                updateUIWithTodoItem(item)
-            }
-        } catch {
-            print("Error loading file: \(error)")
-        }
+        textView.delegate = self
         
-        setupAppearance()
+        
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        view.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.95, alpha: 1.0)
+        view.backgroundColor =  UIColor(named: "backPrimary")
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         
-        let textView = ResizingTextView()
-        
-        let placeholder = "Что надо сделать?"
-        textView.attributedText = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
-        textView.backgroundColor = .white
+        textView.backgroundColor = UIColor(named: "backSecondary")
         textView.layer.cornerRadius = 8
         textView.font = UIFont.systemFont(ofSize: 16)
-        textView.textContainerInset = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8)
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         textView.delegate = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textView)
@@ -85,18 +108,17 @@ class TaskViewController: UIViewController {
         view.addSubview(statusView)
         
         
-        //сделать текст жирным
         let titleLabel = UILabel()
         titleLabel.text = "Дело"
         titleLabel.textAlignment = .center
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "SFProText-Regular", size: 8.5)
+        titleLabel.textColor = UIColor(named: "labelPrimary")
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         
         let cancelButton = UIButton(type: .system)
         cancelButton.setTitle("Отменить", for: .normal)
-        cancelButton.titleLabel?.font = UIFont(name: "SF Pro Text", size: 8.5)
+        cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         cancelButton.setTitleColor(UIColor(red: 0, green: 0.48, blue: 1, alpha: 1), for: .normal)
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +126,7 @@ class TaskViewController: UIViewController {
         
         let saveButton = UIButton(type: .system)
         saveButton.setTitle("Сохранить", for: .normal)
-        saveButton.titleLabel?.font = UIFont(name: "SF Pro Text", size: 8.5)
+        saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         saveButton.setTitleColor(UIColor(red: 0, green: 0.48, blue: 1, alpha: 1), for: .normal)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
@@ -112,9 +134,8 @@ class TaskViewController: UIViewController {
         
         
         
-        
         let bottomView = UIView()
-        bottomView.backgroundColor = .white
+        bottomView.backgroundColor = UIColor(named: "backSecondary")
         bottomView.layer.cornerRadius = 8
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomView)
@@ -128,7 +149,6 @@ class TaskViewController: UIViewController {
         
         
         
-        let deleteButton = UIButton(type: .system)
         deleteButton.setTitle("Удалить", for: .normal)
         deleteButton.setTitleColor(.gray, for: .normal)
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -137,13 +157,16 @@ class TaskViewController: UIViewController {
         bottomView.addSubview(deleteButton)
         
         
+        
+        
         NSLayoutConstraint.activate([
             deleteButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
-            deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor)
+            deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
+            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            deleteButton.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor),
+            deleteButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor),
+            
         ])
-        
-        
-        
         
         
         NSLayoutConstraint.activate([
@@ -151,57 +174,30 @@ class TaskViewController: UIViewController {
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
         
-        
-        
-        
-        
         NSLayoutConstraint.activate([
             statusView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 8),
             statusView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             statusView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            statusView.heightAnchor.constraint(greaterThanOrEqualToConstant: 200),
+            statusView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
             
         ])
         
         
-        
-        
-        
         NSLayoutConstraint.activate([
-            
-            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120),
-            textView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height * 0.5),
-            
-            
+            textView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height * 0.48),
         ])
         
         NSLayoutConstraint.activate([
-            
-            
             cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             cancelButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             saveButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             
         ])
-        
-        
-        NSLayoutConstraint.activate([
-            bottomView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 8),
-            bottomView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            bottomView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-        ])
-        
-        NSLayoutConstraint.activate([
-            deleteButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
-            deleteButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
-            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-        ])
-        
         
         
         NSLayoutConstraint.activate([
@@ -220,84 +216,89 @@ class TaskViewController: UIViewController {
         ])
         
         
-        
         contentView.addSubview(statusView)
         contentView.addSubview(textView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(cancelButton)
         contentView.addSubview(saveButton)
         contentView.addSubview(bottomView)
-
-
-        
     }
     
     
-//    func setupAppearance() {
-//           //updateButtonColor()
-//
-//           if traitCollection.userInterfaceStyle == .dark {
-//               contentView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               textView.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               textView.textColor = .white
-//               contentView.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               deleteButton.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//           } else {
-//               contentView.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//               textView.backgroundColor = .white
-//              textView.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-//               contentView.backgroundColor = .white
-//               contentView.backgroundColor = .white
-//           }
-//       }
-
-//    func updateButtonColor() {
-//          if textView.text.isEmpty {
-//              navigationItem.rightBarButtonItem?.tintColor = UIColor.lightGray
-//              deleteButton.setTitleColor(.lightGray, for: .normal)
-//          } else {
-//              navigationItem.rightBarButtonItem?.tintColor = UIColor.systemBlue
-//              deleteButton.setTitleColor(.red, for: .normal)
-//          }
-//      }
     
     @objc func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveButtonTapped(_ sender: Any) {
-        if let todoItem = self.todoItem {
-            fileCache.addItem(todoItem)
-            do {
-                try fileCache.saveToFile(filename: filename)
-            } catch {
-                print("Error saving file: \(error)")
-            }
+    private let attributeContainer: AttributeContainer = {
+        var container = AttributeContainer()
+        container.font = .systemFont(ofSize: 13, weight: .medium)
+        return container
+    }()
+    
+    private func setupUI() {
+        guard let todoItem else { return }
+        print(todoItem)
+        textView.textColor = UIColor(named: "labelDone")
+        switch todoItem.importance {
+        case .unimportant:
+            statusSelector.segmentControl.selectedSegmentIndex = 0
+        case .normal:
+            statusSelector.segmentControl.selectedSegmentIndex = 1
+        case .important:
+            statusSelector.segmentControl.selectedSegmentIndex = 2
         }
-    }
-    
-    @IBAction func deleteButtonTapped(_ sender: Any) {
-        if let todoItem = self.todoItem {
-            fileCache.removeItem(withId: todoItem.id)
-            do {
-                try fileCache.saveToFile(filename: filename)
-            } catch {
-                print("Error saving file: \(error)")
-            }
-            self.todoItem = nil
+        if let deadline = todoItem.deadline {
+            statusSelector.dateButton.configuration?.attributedTitle = AttributedString(dateFormatter.string(from: deadline), attributes: attributeContainer)
+            statusSelector.toggleSwitch.isOn = true
+            statusSelector.dateButton.isHidden = false
         }
+        textView.text = todoItem.text
+        print(todoItem.text)
     }
     
     
-    private func updateUIWithTodoItem(_ todoItem: TodoItem) {
-        todoTextField.text = todoItem.text
+    @objc func saveButtonTapped(_ sender: Any) {
+        var importance = Importance.normal
+        switch  statusSelector.segmentControl.selectedSegmentIndex {
+        case 0:
+            importance = Importance.unimportant
+        case 1:
+            importance = Importance.normal
+        case 2:
+            importance = Importance.important
+        default:
+            break
+        }
+        
+        var deadline: Date?
+        
+        if let text = statusSelector.dateButton.titleLabel?.text {
+            deadline = dateFormatter.date(from: text)
+        }
+        
+        print(deadline)
+        
+        if let todoItem = todoItem {
+            let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, id: todoItem.id, creationDate: todoItem.creationDate, modificationDate: .now)
+            delegate?.saveCell(item)
+        } else {
+            let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, modificationDate: .now)
+            delegate?.saveCell(item)
+        }
+        
+        
+        dismiss(animated: true, completion: nil)
+        
     }
-
-
-
     
+    @objc func deleteButtonTapped(_ sender: Any) {
+        if let todoItem = todoItem {
+            delegate?.deleteCell(todoItem.id, true)
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }
-
 
 
 
@@ -319,35 +320,27 @@ private func createLabeledView(withText text: String) -> UIView {
 
 
 
-private func createRectangleView(withText text: String) -> UIView {
-    let view = UIView()
-    view.backgroundColor = .white
-    view.layer.cornerRadius = 14
-    
-    let label = UILabel()
-    label.text = text
-    label.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(label)
-    
-    NSLayoutConstraint.activate([
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-    ])
-    
-    return view
-}
-
 extension TaskViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.attributedText.string == "Что надо сделать?" {
-            textView.attributedText = NSAttributedString(string: "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        if textView.text == "Что надо сделать?" {
+            textView.text = ""
         }
+        textView.textColor = UIColor(named: "labelPrimary")
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty{
+            textView.text =  "Что надо сделать?"
+            
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
         if textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.attributedText = NSAttributedString(string: "Что надо сделать?", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+            deleteButton.setTitleColor(.gray, for: .normal)
+        } else {
+            deleteButton.setTitleColor(.red, for: .normal)
         }
     }
 }

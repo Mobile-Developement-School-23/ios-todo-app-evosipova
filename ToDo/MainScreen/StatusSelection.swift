@@ -13,37 +13,36 @@ protocol StatusSelectionProtocol: UIView {
 }
 
 
-
 class StatusSelectorView: UIView, StatusSelectionProtocol {
     private let label1 = UILabel()
-    private let segmentControl = UISegmentedControl(items: [ UIImage(named: "item1.svg")?.withRenderingMode(.alwaysOriginal) as Any, "нет",  UIImage(named: "item3.svg")?.withRenderingMode(.alwaysOriginal) as Any])
-
+    let segmentControl = UISegmentedControl(items: [ UIImage(named: "item1.svg")?.withRenderingMode(.alwaysOriginal) as Any, "нет",  UIImage(named: "item3.svg")?.withRenderingMode(.alwaysOriginal) as Any])
+    
     private var datePickerHeightConstraint: NSLayoutConstraint!
-
-
+    
     private let label2 = UILabel()
-    private let dateButton = UIButton(type: .system)
+    let dateButton = UIButton(type: .system)
     private let separator = UIView()
     private let separator2 = UIView()
-    private let toggleSwitch = UISwitch()
+    let toggleSwitch = UISwitch()
     private let datePicker = UIDatePicker()
-
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.backgroundColor = .white
+        dateButton.isHidden = true
+        
+        self.backgroundColor = UIColor(named: "backSecondary")
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
-
+        
         label1.text = "Важность"
         label2.text = "Сделать до"
         datePicker.isHidden = true
-                datePicker.datePickerMode = .date
-                datePicker.preferredDatePickerStyle = .inline
-                datePicker.translatesAutoresizingMaskIntoConstraints = false
-                datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        
         
         separator.backgroundColor = .lightGray
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -61,10 +60,8 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         horizontalStackView1.distribution = .fillProportionally
         horizontalStackView1.alignment = .center
         horizontalStackView1.translatesAutoresizingMaskIntoConstraints = false
-
+        
         horizontalStackView1.heightAnchor.constraint(equalToConstant: 50).isActive = true
-
-
         
         dateButton.setTitleColor(.systemBlue, for: .normal)
         dateButton.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
@@ -72,37 +69,35 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         
         let spacerView = UIView()
         spacerView.translatesAutoresizingMaskIntoConstraints = false
-
-
+        
+        
         let verticalStackView = UIStackView(arrangedSubviews: [label2, dateButton])
         verticalStackView.axis = .vertical
         verticalStackView.spacing = 10
         verticalStackView.distribution = .fillProportionally
         verticalStackView.alignment = .fill
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-
-
+        
+        
         let horizontalStackView2 = UIStackView(arrangedSubviews: [verticalStackView, spacerView, toggleSwitch])
         horizontalStackView2.axis = .horizontal
         horizontalStackView2.spacing = 10
         horizontalStackView2.distribution = .fill
         horizontalStackView2.alignment = .center
         horizontalStackView2.translatesAutoresizingMaskIntoConstraints = false
-
+        
         horizontalStackView2.heightAnchor.constraint(equalToConstant: 50).isActive = true
-
+        
         
         toggleSwitch.setContentHuggingPriority(.required, for: .horizontal)
         toggleSwitch.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-
+        
+        
         toggleSwitch.addTarget(self, action: #selector(toggleSwitched), for: .valueChanged)
-
-        let stackView = UIStackView(arrangedSubviews: [horizontalStackView1, separator, horizontalStackView2, separator2, datePicker])  // separator2 added here
-
+        
+        let stackView = UIStackView(arrangedSubviews: [horizontalStackView1, separator, horizontalStackView2, separator2, datePicker])
+        
         horizontalStackView1.setCustomSpacing(16, after: separator)
-
-        //stackView.setCustomSpacing(16, after: horizontalStackView2)
         
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -113,15 +108,15 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(stackView)
-
+        
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-
-
+            
+            
             toggleSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -12),
         ])
     }
@@ -147,11 +142,11 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
         UIView.animate(withDuration: 0.5, animations: {
             self.datePicker.isHidden = !self.datePicker.isHidden
             self.separator2.isHidden = !(!self.datePicker.isHidden && self.toggleSwitch.isOn)
-
+            
         })
     }
-
-
+    
+    
     @objc func toggleSwitched(_ sender: UISwitch) {
         dateButton.isHidden = !sender.isOn
         self.datePicker.isHidden = true
@@ -162,22 +157,17 @@ class StatusSelectorView: UIView, StatusSelectionProtocol {
             dateComponents.day = 1
             let nextDate = Calendar.current.date(byAdding: dateComponents, to: Date())
             let formatter = DateFormatter()
-            formatter.dateStyle = .medium
+           // formatter.dateStyle = .medium
+            formatter.dateFormat = "d MMM yyyy"
             dateButton.setTitle(formatter.string(from: nextDate!), for: .normal)
             datePicker.date = nextDate!
         }
-
-
-
     }
-
-    
-
-    
     
     @objc func dateChanged(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
+        formatter.dateFormat = "d MMM yyyy"
+        //formatter.dateStyle = .medium
         dateButton.setTitle(formatter.string(from: sender.date), for: .normal)
     }
 }
@@ -253,6 +243,4 @@ final class YaToDoStatusView: UIView {
     func getData() -> String? {
         return selectable?.getStatus()
     }
-    
-
 }
