@@ -23,7 +23,7 @@ class ResizingTextView: UITextView {
 
 class TaskViewController: UIViewController {
 
-    weak var delegate: CreateTaskViewControllerDelegate?
+    weak var delegate: TaskViewControllerDelegate?
 
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -274,10 +274,10 @@ class TaskViewController: UIViewController {
 
         if let todoItem = todoItem {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, id: todoItem.id, creationDate: todoItem.creationDate, modificationDate: .now)
-            delegate?.saveTask(item)
+            delegate?.saveCell(item)
         } else {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, modificationDate: .now)
-            delegate?.saveTask(item)
+            delegate?.saveCell(item)
         }
 
         dismiss(animated: true, completion: nil)
@@ -286,7 +286,7 @@ class TaskViewController: UIViewController {
 
     @objc func deleteButtonTapped(_ sender: Any) {
         if let todoItem = todoItem {
-            delegate?.deleteTask(todoItem.id, true)
+            delegate?.deleteCell(todoItem.id, true)
         }
         dismiss(animated: true, completion: nil)
     }

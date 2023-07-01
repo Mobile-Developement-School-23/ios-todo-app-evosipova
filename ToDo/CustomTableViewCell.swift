@@ -158,14 +158,6 @@ final class CustomTableViewCell: UITableViewCell {
     }
 
 
-//    func setUI(_ toDoItem: TodoItem) {
-//        textTaskLabel.text = toDoItem.text
-//        if let deadline = toDoItem.deadline {
-//            deadlineLabel.text = dateFormatter.string(from: deadline)
-//            deadlineStack.isHidden = false
-//        } else {
-//            deadlineStack.isHidden = true
-//        }
 
     func setUI(_ toDoItem: TodoItem) {
         textTaskLabel.text = toDoItem.text
