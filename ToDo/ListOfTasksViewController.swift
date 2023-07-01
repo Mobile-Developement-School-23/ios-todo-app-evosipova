@@ -227,28 +227,40 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let doneAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, _ in
-            guard let self else { return }
-            var toDoItem = fileCache.items[indexPath.row]
-            toDoItem.isDone = !toDoItem.isDone
-            saveTask(toDoItem)
+        let items = showDoneTasks ? fileCache.items : fileCache.items.filter { !$0.isDone }
+        if indexPath.row != items.count {
+            let doneAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, _ in
+                guard let self else { return }
+                var toDoItem = items[indexPath.row]
+                toDoItem.isDone = !toDoItem.isDone
+                saveTask(toDoItem)
+            }
+            doneAction.backgroundColor = #colorLiteral(red: 0.2260308266, green: 0.8052191138, blue: 0.4233448207, alpha: 1)
+            doneAction.image = UIImage(systemName: "checkmark.circle.fill")
+            return UISwipeActionsConfiguration(actions: [doneAction])
+        } else {
+            return nil
         }
-        doneAction.backgroundColor = #colorLiteral(red: 0.2260308266, green: 0.8052191138, blue: 0.4233448207, alpha: 1)
-        doneAction.image = UIImage(systemName: "checkmark.circle.fill")
-        return UISwipeActionsConfiguration(actions: [doneAction])
     }
+
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
-            guard let self else { return }
-            let toDoItem = fileCache.items[indexPath.row]
-            deleteTask(toDoItem.id, false)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        deleteAction.image = UIImage(systemName: "trash.fill")
+        let items = showDoneTasks ? fileCache.items : fileCache.items.filter { !$0.isDone }
+        if indexPath.row != items.count {
+            let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
+                guard let self else { return }
+                let toDoItem = items[indexPath.row]
+                deleteTask(toDoItem.id, false)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            deleteAction.image = UIImage(systemName: "trash.fill")
 
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        } else {
+            return nil
+        }
     }
+
 
     func tableView(_: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
         let index = indexPath.row
