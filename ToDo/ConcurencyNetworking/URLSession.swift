@@ -11,7 +11,7 @@ extension URLSession {
     func dataTaskCustom(for request: URLRequest) async throws -> (Data, URLResponse) {
         var dataTask: URLSessionDataTask?
         let cancelDataTask = { dataTask?.cancel() }
-        
+
         return try await withTaskCancellationHandler(operation: {
             try Task.checkCancellation()
             return try await withCheckedThrowingContinuation { continuation in
@@ -29,3 +29,4 @@ extension URLSession {
         })
     }
 }
+

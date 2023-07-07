@@ -44,7 +44,8 @@ enum RequestProcessor {
     
     private static func performDataTask(for request: URLRequest) async throws -> (Data, HTTPURLResponse) {
         let session = URLSession(configuration: .default)
-        let (data, response) = try await session.dataTaskCustom(for: request)
+//        let (data, response) = try await session.dataTaskCustom(for: request)
+        let (data, response) = try await session.data(for: request)
         guard let httpURLResponse = response.httpURLResponse,
               httpURLResponse.isSuccessful else {
             throw RequestProcessorErrors.requestFailed(response)
