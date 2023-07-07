@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol TaskViewControllerDelegate: AnyObject {
-    func saveCell(_ toDoItem: TodoItem)
+    func saveCell(_ toDoItem: TodoItem, isNewItem: Bool)
     func deleteCell(_ id: String, _ reloadTable: Bool)
 }
 
@@ -18,6 +18,17 @@ final class ListOfTasksViewController: UIViewController {
     private let fileCache = FileCache()
     
     var showDoneTasks = false
+    
+    private let networkFetcher: NetworkService = NetworkFetcher()
+    
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -96,37 +107,82 @@ final class ListOfTasksViewController: UIViewController {
         return container
     }()
     
-
+    
+    private let alert: UIAlertController = {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        return alert
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         loadTasks()
         registerCells()
+        Task{
+            try await networkFetcher.addItem(toDoItem: TodoItem(text: "hi", importance: .normal))
+        }
     }
-
+    
     private func setupView() {
         view.backgroundColor = UIColor(named: "backPrimary")
         navigationItem.title = "Мои дела"
         navigationController?.navigationBar.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
-
+        view.addSubview(activityIndicator)
         setupTableView()
         setupAddButton()
     }
-
-
-    private func loadTasks() {
-        do {
-            try fileCache.loadFromFile(filename: "TodoItems")
-        } catch {
-            debugPrint(error)
+    
+    private func updateTasks() {
+        Task {
+            do {
+                let toDoItems = try await networkFetcher.updateTasks(toDoItems: fileCache.items)
+                for toDoItem in toDoItems {
+                    fileCache.addItem(toDoItem)
+                }
+                fileCache.isDirty = false
+                tableView.reloadData()
+                updateDoneTasks()
+            } catch {
+                print(error)
+                fileCache.isDirty = true
+            }
         }
     }
-
+    
+    private func loadTasks() {
+        _ = Task {
+            do {
+                let toDoItems = try await networkFetcher.getAllItems()
+                for toDoItem in toDoItems {
+                    fileCache.addItem(toDoItem)
+                }
+                fileCache.isDirty = false
+                tableView.reloadData()
+                updateDoneTasks()
+            } catch {
+                debugPrint(error)
+                do {
+                    try fileCache.loadFromFile(filename: "TodoItems")
+                    tableView.reloadData()
+                    updateDoneTasks()
+                } catch {
+                    alert.title = "Нет списка дел"
+                    alert.message = "Не получилось загрузить список дел"
+                    present(alert, animated: true)
+                }
+                fileCache.isDirty = true
+            }
+        }
+        
+        //        task.cancel()
+    }
+    
     private func registerCells() {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.id)
         tableView.register(AddTaskCell.self, forCellReuseIdentifier: AddTaskCell.id)
     }
-
+    
     private func editTask(_ index: Int) {
         let createTaskViewController = TaskViewController()
         createTaskViewController.todoItem = fileCache.items[index]
@@ -134,7 +190,7 @@ final class ListOfTasksViewController: UIViewController {
         print(fileCache.items[index])
         present(createTaskViewController, animated: true)
     }
-
+    
     private func setupTableView() {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -144,7 +200,7 @@ final class ListOfTasksViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
     }
-
+    
     private func setupAddButton() {
         view.addSubview(addButton)
         NSLayoutConstraint.activate([
@@ -160,32 +216,104 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
         doneLabel.text = "Выполнено — \(doneTasks)"
     }
     
-    func saveCell(_ toDoItem: TodoItem) {
+    func saveCell(_ toDoItem: TodoItem, isNewItem: Bool)  {
         fileCache.addItem(toDoItem)
         do {
             try fileCache.saveToFile(filename: "TodoItems")
         } catch {
-            debugPrint(error)
+            alert.title = "Что-то пошло не так"
+            alert.message = "Не получилось сохранить задачу"
+            present(alert, animated: true)
         }
         updateDoneTasks()
         tableView.reloadData()
+        
+        guard !fileCache.isDirty else {
+            updateTasks()
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.startAnimating()
+        }
+        
+        Task.init {
+            self.activityIndicator.startAnimating()
+            var retryCount = 0
+            let maxRetryAttempts = 5
+            var delay = 1.0
+            while retryCount < maxRetryAttempts {
+                do {
+                    if isNewItem {
+                        try await networkFetcher.addItem(toDoItem: toDoItem)
+                    } else {
+                        try await networkFetcher.modifyTask(toDoItem: toDoItem)
+                    }
+                    self.activityIndicator.stopAnimating()
+                    break
+                } catch {
+                    debugPrint(error)
+                    fileCache.isDirty = true
+                    retryCount += 1
+                    
+                    delay *= 2.0
+                    
+                    print(delay)
+                    
+                    await Task.sleep(UInt64(delay * 1_000_000_000))
+                    continue
+                }
+            }
+        }
     }
+    
+    
     
     func deleteCell(_ id: String, _ reloadTable: Bool = true) {
         fileCache.removeItem(withId: id)
         do {
             try fileCache.saveToFile(filename: "TodoItems")
         } catch {
-            debugPrint(error)
+            alert.title = "Что-то пошло не так"
+            alert.message = "Не получилось удалить задачу"
+            present(alert, animated: true)
         }
         updateDoneTasks()
         if reloadTable { tableView.reloadData() }
+        guard !fileCache.isDirty else {
+            updateTasks()
+            return
+        }
+        
+        if let toDoItem = fileCache.items.first(where: { $0.id == id }) {
+            Task.init {
+                self.activityIndicator.startAnimating()
+                var retryCount = 0
+                let maxRetryAttempts = 5
+                var delay = 1.0
+                while retryCount < maxRetryAttempts {
+                    do {
+                        try await networkFetcher.removeItem(toDoItem: toDoItem)
+                        self.activityIndicator.stopAnimating()
+                        break
+                    } catch {
+                        debugPrint(error)
+                        fileCache.isDirty = true
+                        retryCount += 1
+                        delay *= 2.0
+                        await Task.sleep(UInt64(delay * 1_000_000_000))
+                        continue
+                    }
+                }
+            }
+        }
+        
     }
 }
 
 extension ListOfTasksViewController: TaskCellDelegate {
-    func changeToDoItem(_ toDoItem: TodoItem) {
-        saveCell(toDoItem)
+    func changeToDoItem(_ toDoItem: TodoItem) async {
+        await saveCell(toDoItem, isNewItem: false)
     }
 }
 
@@ -241,7 +369,7 @@ extension ListOfTasksViewController: UITableViewDelegate, UITableViewDataSource 
                 guard let self else { return }
                 var toDoItem = items[index.row]
                 toDoItem.isDone = !toDoItem.isDone
-                saveCell(toDoItem)
+                saveCell(toDoItem, isNewItem: false)
             }
             doneAction.backgroundColor = #colorLiteral(red: 0.2260308266, green: 0.8052191138, blue: 0.4233448207, alpha: 1)
             doneAction.image = UIImage(systemName: "checkmark.circle.fill")

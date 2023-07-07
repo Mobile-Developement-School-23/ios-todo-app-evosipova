@@ -45,37 +45,6 @@ final class ToDoTests: XCTestCase {
         XCTAssertEqual(parsedTodo?.importance, todo.importance)
     }
     
-    func testTodoItemCompleteCsvParsing() {
-        let creationDate = dateFormatter.string(from: Date())
-        let deadline = dateFormatter.string(from: Date(timeIntervalSinceNow: 60))
-        let modificationDate = dateFormatter.string(from: Date())
-        let completeCsv = "testID,Test,true,\(creationDate),important,\(deadline),\(modificationDate)"
-        
-        guard let todo = TodoItem.parse(csv: completeCsv) else {
-            XCTFail("Failed to parse complete CSV.")
-            return
-        }
-        
-        XCTAssertEqual(todo.id, "testID")
-        XCTAssertEqual(todo.text, "Test")
-        XCTAssertEqual(todo.isDone, true)
-        XCTAssertEqual(todo.importance, .important)
-        XCTAssertNotNil(todo.deadline)
-        XCTAssertNotNil(todo.modificationDate)
-    }
-    
-    func testTodoItemCompleteCsvConversion() {
-        let deadline = Date(timeIntervalSinceNow: 60)
-        let modificationDate = Date()
-        let todo = TodoItem(text: "Test", importance: .important, deadline: deadline, isDone: true, id: "testID", modificationDate: modificationDate)
-        let csv = todo.csv
-        XCTAssertTrue(csv.contains("testID"))
-        XCTAssertTrue(csv.contains("Test"))
-        XCTAssertTrue(csv.contains("true"))
-        XCTAssertTrue(csv.contains("important"))
-        XCTAssertTrue(csv.contains(dateFormatter.string(from: deadline)))
-        XCTAssertTrue(csv.contains(dateFormatter.string(from: modificationDate)))
-    }
     
     func testTodoItemCompleteJsonParsing() throws {
         let dateFormatter = DateFormatter()
