@@ -216,100 +216,100 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
         doneLabel.text = "Выполнено — \(doneTasks)"
     }
     
-//    func saveCell(_ toDoItem: TodoItem, isNewItem: Bool)  {
-//        fileCache.addItem(toDoItem)
-//        do {
-//            try fileCache.saveToFile(filename: "TodoItems")
-//        } catch {
-//            alert.title = "Что-то пошло не так"
-//            alert.message = "Не получилось сохранить задачу"
-//            present(alert, animated: true)
-//        }
-//        updateDoneTasks()
-//        tableView.reloadData()
-//        
-//        guard !fileCache.isDirty else {
-//            updateTasks()
-//            return
-//        }
-//        
-//        DispatchQueue.main.async { [weak self] in
-//            self?.activityIndicator.startAnimating()
-//        }
-//        
-//        Task.init {
-//            self.activityIndicator.startAnimating()
-//            var retryCount = 0
-//            let maxRetryAttempts = 5
-//            var delay = 1.0
-//            while retryCount < maxRetryAttempts {
-//                do {
-//                    if isNewItem {
-//                        try await networkFetcher.addItem(toDoItem: toDoItem)
-//                    } else {
-//                        try await networkFetcher.modifyTask(toDoItem: toDoItem)
-//                    }
-//                    self.activityIndicator.stopAnimating()
-//                    break
-//                } catch {
-//                    debugPrint(error)
-//                    fileCache.isDirty = true
-//                    retryCount += 1
-//                    
-//                    delay *= 2.0
-//                    
-//                    print(delay)
-//                    
-//                    await Task.sleep(UInt64(delay * 1_000_000_000))
-//                    continue
-//                }
-//            }
-//        }
-//    }
-//    
-//    
-//    
-//    func deleteCell(_ id: String, _ reloadTable: Bool = true) {
-//        fileCache.removeItem(withId: id)
-//        do {
-//            try fileCache.saveToFile(filename: "TodoItems")
-//        } catch {
-//            alert.title = "Что-то пошло не так"
-//            alert.message = "Не получилось удалить задачу"
-//            present(alert, animated: true)
-//        }
-//        updateDoneTasks()
-//        if reloadTable { tableView.reloadData() }
-//        guard !fileCache.isDirty else {
-//            updateTasks()
-//            return
-//        }
-//        
-//        if let toDoItem = fileCache.items.first(where: { $0.id == id }) {
-//            Task.init {
-//                self.activityIndicator.startAnimating()
-//                var retryCount = 0
-//                let maxRetryAttempts = 5
-//                var delay = 1.0
-//                while retryCount < maxRetryAttempts {
-//                    do {
-//                        try await networkFetcher.removeItem(toDoItem: toDoItem)
-//                        self.activityIndicator.stopAnimating()
-//                        break
-//                    } catch {
-//                        debugPrint(error)
-//                        fileCache.isDirty = true
-//                        retryCount += 1
-//                        delay *= 2.0
-//                        await Task.sleep(UInt64(delay * 1_000_000_000))
-//                        continue
-//                    }
-//                }
-//            }
-//        }
-//        
-//    }
-//}
+    func saveCell(_ toDoItem: TodoItem, isNewItem: Bool)  {
+        fileCache.addItem(toDoItem)
+        do {
+            try fileCache.saveToFile(filename: "TodoItems")
+        } catch {
+            alert.title = "Что-то пошло не так"
+            alert.message = "Не получилось сохранить задачу"
+            present(alert, animated: true)
+        }
+        updateDoneTasks()
+        tableView.reloadData()
+
+        guard !fileCache.isDirty else {
+            updateTasks()
+            return
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.startAnimating()
+        }
+
+        Task.init {
+            self.activityIndicator.startAnimating()
+            var retryCount = 0
+            let maxRetryAttempts = 5
+            var delay = 1.0
+            while retryCount < maxRetryAttempts {
+                do {
+                    if isNewItem {
+                        try await networkFetcher.addItem(toDoItem: toDoItem)
+                    } else {
+                        try await networkFetcher.modifyTask(toDoItem: toDoItem)
+                    }
+                    self.activityIndicator.stopAnimating()
+                    break
+                } catch {
+                    debugPrint(error)
+                    fileCache.isDirty = true
+                    retryCount += 1
+
+                    delay *= 2.0
+
+                    print(delay)
+
+                    await Task.sleep(UInt64(delay * 1_000_000_000))
+                    continue
+                }
+            }
+        }
+    }
+
+
+
+    func deleteCell(_ id: String, _ reloadTable: Bool = true) {
+        fileCache.removeItem(withId: id)
+        do {
+            try fileCache.saveToFile(filename: "TodoItems")
+        } catch {
+            alert.title = "Что-то пошло не так"
+            alert.message = "Не получилось удалить задачу"
+            present(alert, animated: true)
+        }
+        updateDoneTasks()
+        if reloadTable { tableView.reloadData() }
+        guard !fileCache.isDirty else {
+            updateTasks()
+            return
+        }
+
+        if let toDoItem = fileCache.items.first(where: { $0.id == id }) {
+            Task.init {
+                self.activityIndicator.startAnimating()
+                var retryCount = 0
+                let maxRetryAttempts = 5
+                var delay = 1.0
+                while retryCount < maxRetryAttempts {
+                    do {
+                        try await networkFetcher.removeItem(toDoItem: toDoItem)
+                        self.activityIndicator.stopAnimating()
+                        break
+                    } catch {
+                        debugPrint(error)
+                        fileCache.isDirty = true
+                        retryCount += 1
+                        delay *= 2.0
+                        await Task.sleep(UInt64(delay * 1_000_000_000))
+                        continue
+                    }
+                }
+            }
+        }
+
+    }
+}
 
 extension ListOfTasksViewController: TaskCellDelegate {
     func changeToDoItem(_ toDoItem: TodoItem) async {
