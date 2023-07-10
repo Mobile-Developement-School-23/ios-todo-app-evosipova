@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol TaskCellDelegate: AnyObject {
-    func changeToDoItem(_ toDoItem: TodoItem)
+    func changeToDoItem(_ toDoItem: TodoItem) async
 }
 
 final class CustomTableViewCell: UITableViewCell {
@@ -35,15 +35,18 @@ final class CustomTableViewCell: UITableViewCell {
         checkButton.setImage(image, for: .normal)
         checkButton.tintColor = UIColor(named: "backPrimary")
         checkButton.addAction(UIAction(handler: { [weak self] _ in
-            guard let self, var todoItem else { return }
+            guard let self = self, var todoItem = self.todoItem else { return }
             todoItem.isDone = !todoItem.isDone
-            setDone()
-            delegate?.changeToDoItem(todoItem)
-            
+            self.setDone()
+            Task {
+                await self.delegate?.changeToDoItem(todoItem)
+            }
         }), for: .touchUpInside)
         checkButton.translatesAutoresizingMaskIntoConstraints = false
         return checkButton
     }()
+    
+    
     
     private let arrow: UIImageView = {
         let arrow = UIImageView(image: UIImage(named: "arrow"))
@@ -181,7 +184,7 @@ final class CustomTableViewCell: UITableViewCell {
     private func setDone() {
         guard let todoItem else { return }
         if todoItem.isDone {
-            let img = UIImage(named: "bounds")
+            let img = UIImage(named: "Bounds")
             buttonCheck.setImage(img, for: .normal)
             let str = NSAttributedString(string: taskLabel.text ?? "", attributes: [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue])
             taskLabel.attributedText = str
@@ -193,7 +196,7 @@ final class CustomTableViewCell: UITableViewCell {
             let str = NSAttributedString(string: taskLabel.text ?? "", attributes: [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.self])
             taskLabel.attributedText = str
         } else {
-            let img = UIImage(named: "ellipse")
+            let img = UIImage(named: "Ellipse")
             buttonCheck.setImage(img, for: .normal)
             taskLabel.textColor = UIColor(named: "text")
             let str = NSAttributedString(string: taskLabel.text ?? "", attributes: [NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.self])

@@ -20,6 +20,10 @@
 		5E8D17F92A3BC22300110BAA /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8D17F82A3BC22300110BAA /* TodoItem.swift */; };
 		5E8D17FA2A3BC22300110BAA /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8D17F82A3BC22300110BAA /* TodoItem.swift */; };
 		5E8D17FB2A3BC22300110BAA /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8D17F82A3BC22300110BAA /* TodoItem.swift */; };
+		5E8E00262A576FAF002CBAB5 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E00252A576FAF002CBAB5 /* URLSession.swift */; };
+		5E8E00282A57701C002CBAB5 /* NetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E00272A57701C002CBAB5 /* NetworkFetcher.swift */; };
+		5E8E002C2A577075002CBAB5 /* NetworkToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E002B2A577075002CBAB5 /* NetworkToDoItem.swift */; };
+		5E8E002E2A577088002CBAB5 /* RequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E002D2A577088002CBAB5 /* RequestProcessor.swift */; };
 		5EDD97EB2A438443008A2274 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EA2A438443008A2274 /* MyViewController.swift */; };
 		5EDD97ED2A438828008A2274 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EC2A438828008A2274 /* TaskViewController.swift */; };
 		5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EE2A446019008A2274 /* StatusSelection.swift */; };
@@ -60,6 +64,10 @@
 		5E8D17E12A3BC1FA00110BAA /* ToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E8D17F42A3BC21500110BAA /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		5E8D17F82A3BC22300110BAA /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		5E8E00252A576FAF002CBAB5 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		5E8E00272A57701C002CBAB5 /* NetworkFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetcher.swift; sourceTree = "<group>"; };
+		5E8E002B2A577075002CBAB5 /* NetworkToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkToDoItem.swift; sourceTree = "<group>"; };
+		5E8E002D2A577088002CBAB5 /* RequestProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProcessor.swift; sourceTree = "<group>"; };
 		5EDD97EA2A438443008A2274 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		5EDD97EC2A438828008A2274 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		5EDD97EE2A446019008A2274 /* StatusSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSelection.swift; sourceTree = "<group>"; };
@@ -97,6 +105,7 @@
 		5E8D17B82A3BC1F800110BAA = {
 			isa = PBXGroup;
 			children = (
+				5EA37A6E2A58942700B3E1DF /* Cell */,
 				5E8D17C32A3BC1F800110BAA /* ToDo */,
 				5E8D17DA2A3BC1FA00110BAA /* ToDoTests */,
 				5E8D17C22A3BC1F800110BAA /* Products */,
@@ -116,19 +125,16 @@
 		5E8D17C32A3BC1F800110BAA /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				5EDD97E72A43799B008A2274 /* MainScreen */,
 				5E8D17C42A3BC1F800110BAA /* AppDelegate.swift */,
 				5E8D17C62A3BC1F800110BAA /* SceneDelegate.swift */,
-				5E8D17C82A3BC1F800110BAA /* ViewController.swift */,
+				5E8D17F82A3BC22300110BAA /* TodoItem.swift */,
+				5E8D17F42A3BC21500110BAA /* FileCache.swift */,
+				5E8E00242A576E78002CBAB5 /* ConcurencyNetworking */,
+				5EDD97E72A43799B008A2274 /* MainScreen */,
 				5E8D17CA2A3BC1F800110BAA /* Main.storyboard */,
 				5E8D17CD2A3BC1FA00110BAA /* Assets.xcassets */,
 				5E8D17CF2A3BC1FA00110BAA /* LaunchScreen.storyboard */,
 				5E8D17D22A3BC1FA00110BAA /* Info.plist */,
-				5E8D17F42A3BC21500110BAA /* FileCache.swift */,
-				5E8D17F82A3BC22300110BAA /* TodoItem.swift */,
-				5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */,
-				5EDD97F52A4F64A0008A2274 /* CustomTableViewCell.swift */,
-				5EE89A132A4F9380009F4FAD /* AddTaskCell.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -141,9 +147,31 @@
 			path = ToDoTests;
 			sourceTree = "<group>";
 		};
+		5E8E00242A576E78002CBAB5 /* ConcurencyNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				5E8E002B2A577075002CBAB5 /* NetworkToDoItem.swift */,
+				5E8E00252A576FAF002CBAB5 /* URLSession.swift */,
+				5E8E002D2A577088002CBAB5 /* RequestProcessor.swift */,
+				5E8E00272A57701C002CBAB5 /* NetworkFetcher.swift */,
+			);
+			path = ConcurencyNetworking;
+			sourceTree = "<group>";
+		};
+		5EA37A6E2A58942700B3E1DF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5EDD97F32A4C6ED9008A2274 /* ListOfTasksViewController.swift */,
+				5EDD97F52A4F64A0008A2274 /* CustomTableViewCell.swift */,
+				5EE89A132A4F9380009F4FAD /* AddTaskCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		5EDD97E72A43799B008A2274 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
+				5E8D17C82A3BC1F800110BAA /* ViewController.swift */,
 				5EDD97EA2A438443008A2274 /* MyViewController.swift */,
 				5EDD97EC2A438828008A2274 /* TaskViewController.swift */,
 				5EDD97EE2A446019008A2274 /* StatusSelection.swift */,
@@ -285,16 +313,20 @@
 			files = (
 				5EDD97F42A4C6ED9008A2274 /* ListOfTasksViewController.swift in Sources */,
 				5E8D17F92A3BC22300110BAA /* TodoItem.swift in Sources */,
+				5E8E00282A57701C002CBAB5 /* NetworkFetcher.swift in Sources */,
 				5EDD97F62A4F64A0008A2274 /* CustomTableViewCell.swift in Sources */,
 				5EDD97ED2A438828008A2274 /* TaskViewController.swift in Sources */,
+				5E8E002E2A577088002CBAB5 /* RequestProcessor.swift in Sources */,
 				5EE89A142A4F9380009F4FAD /* AddTaskCell.swift in Sources */,
 				5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */,
 				5E8D17C92A3BC1F800110BAA /* ViewController.swift in Sources */,
 				5E8D17C52A3BC1F800110BAA /* AppDelegate.swift in Sources */,
+				5E8E00262A576FAF002CBAB5 /* URLSession.swift in Sources */,
 				5EDD97F12A446280008A2274 /* UIView+Pin.swift in Sources */,
 				5EDD97EB2A438443008A2274 /* MyViewController.swift in Sources */,
 				5E8D17F52A3BC21500110BAA /* FileCache.swift in Sources */,
 				5E8D17C72A3BC1F800110BAA /* SceneDelegate.swift in Sources */,
+				5E8E002C2A577075002CBAB5 /* NetworkToDoItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -456,7 +488,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

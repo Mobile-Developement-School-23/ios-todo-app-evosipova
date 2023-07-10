@@ -277,14 +277,13 @@ class TaskViewController: UIViewController {
             deadline = dateFormatter.date(from: text)
         }
         
-        print(deadline)
         
         if let todoItem = todoItem {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, id: todoItem.id, creationDate: todoItem.creationDate, modificationDate: .now)
-            delegate?.saveCell(item)
+            delegate?.saveCell(item, isNewItem: false)
         } else {
             let item = TodoItem(text: textView.text, importance: importance, deadline: deadline, modificationDate: .now)
-            delegate?.saveCell(item)
+            delegate?.saveCell(item, isNewItem: true)
         }
         
         
