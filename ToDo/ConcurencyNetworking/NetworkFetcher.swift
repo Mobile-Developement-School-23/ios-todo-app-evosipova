@@ -56,7 +56,8 @@ final class NetworkFetcher: NetworkService {
     func removeItem(toDoItem: TodoItem) async throws {
         print("requestRemoveItem")
         let url = try RequestProcessor.makeURL(from: toDoItem.id)
-        let (data, _) = try await RequestProcessor.performRequest(with: url, method: .delete, revision: revision)
+        let (data, response) = try await RequestProcessor.performRequest(with: url, method: .delete, revision: revision)
+        print(response)
         let toDoItemNetwork = try decoder.decode(ElementToDoItem.self, from: data)
         print(toDoItemNetwork)
         revision = toDoItemNetwork.revision

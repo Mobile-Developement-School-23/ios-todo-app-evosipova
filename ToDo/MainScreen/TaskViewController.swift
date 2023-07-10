@@ -293,7 +293,7 @@ class TaskViewController: UIViewController {
     
     @objc func deleteButtonTapped(_ sender: Any) {
         if let todoItem = todoItem {
-            delegate?.deleteCell(todoItem.id, true)
+            delegate?.deleteCell(todoItem, true)
         }
         dismiss(animated: true, completion: nil)
     }

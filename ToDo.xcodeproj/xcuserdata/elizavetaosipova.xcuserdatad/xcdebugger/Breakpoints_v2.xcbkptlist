@@ -108,8 +108,8 @@
             filePath = "ToDo/ConcurencyNetworking/NetworkFetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "addItem(toDoItem:)"
             landmarkType = "7">
             <Locations>
@@ -246,8 +246,8 @@
             filePath = "ToDo/ConcurencyNetworking/NetworkFetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "addItem(toDoItem:)"
             landmarkType = "7">
             <Locations>
@@ -633,6 +633,208 @@
             endingLineNumber = "248"
             landmarkName = "saveCell(_:isNewItem:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2495CB55-1766-4B87-8527-BD8E2CFDD1D3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo/ConcurencyNetworking/NetworkFetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "removeItem(toDoItem:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7271E355-DA84-4988-B173-54F5427773D3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cell/ListOfTasksViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "deleteCell(_:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7271E355-DA84-4988-B173-54F5427773D3 - a0a28778c3ed6163"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo.ListOfTasksViewController.deleteCell(Swift.String, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "360"
+                  endingLineNumber = "360"
+                  offsetFromSymbolStart = "968">
+               </Location>
+               <Location
+                  uuid = "7271E355-DA84-4988-B173-54F5427773D3 - a1022f419917bd1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo.ListOfTasksViewController.deleteCell(ToDo.TodoItem, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "360"
+                  endingLineNumber = "360"
+                  offsetFromSymbolStart = "748">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cell/ListOfTasksViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
+            landmarkName = "deleteCell(_:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 698479624042e83b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(Swift.String, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "370"
+                  endingLineNumber = "370"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 738d5ca5cee7ed8d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #2 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(Swift.String, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 3e6b1a81247b55c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(Swift.String, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 18398d114a88b7c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #2 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(Swift.String, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - cf32ff953a17862b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(ToDo.TodoItem, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "370"
+                  endingLineNumber = "370"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 7e827f3a063b5b9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(ToDo.TodoItem, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 602fa609983083d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(ToDo.TodoItem, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "D40CA96F-76E7-47C2-8E45-5B64124851DA - 28aecd3e295de5d0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in ToDo.ListOfTasksViewController.deleteCell(ToDo.TodoItem, Swift.Bool) -&gt; ()"
+                  moduleName = "ToDo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/elizavetaosipova/Desktop/swift/ios-todo-app-evosipova/Cell/ListOfTasksViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
