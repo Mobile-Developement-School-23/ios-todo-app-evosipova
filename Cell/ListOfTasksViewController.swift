@@ -176,15 +176,16 @@ final class ListOfTasksViewController: UIViewController {
                 activityIndicator.stopAnimating()
             } catch {
                 debugPrint(error)
-                do {
-                    try fileCache.loadFromFile()
-                    tableView.reloadData()
-                    updateDoneTasks()
-                } catch {
-                    alert.title = "Нет списка дел"
-                    alert.message = "Не получилось загрузить список дел"
-                    present(alert, animated: true)
-                }
+                // do {
+               // try fileCache.loadFromFile()
+                fileCache.loadFromFile()
+                tableView.reloadData()
+                updateDoneTasks()
+                //                } catch {
+                //                    alert.title = "Нет списка дел"
+                //                    alert.message = "Не получилось загрузить список дел"
+                //                    present(alert, animated: true)
+                //                }
                 fileCache.isDirty = true
                 activityIndicator.stopAnimating()
             }
@@ -233,13 +234,15 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
     
     func saveCell(_ toDoItem: TodoItem, isNewItem: Bool)  {
         fileCache.addItem(toDoItem)
-        do {
-            try fileCache.saveToFile()
-        } catch {
-            alert.title = "Что-то пошло не так"
-            alert.message = "Не получилось сохранить задачу"
-            present(alert, animated: true)
-        }
+        // do {
+        //try fileCache.saveToFile()
+        fileCache.saveToFile()
+        //        } catch {
+        //            alert.title = "Что-то пошло не так"
+        //            alert.message = "Не получилось сохранить задачу"
+        //            present(alert, animated: true)
+        //        }
+        present(alert, animated: true)
         updateDoneTasks()
         tableView.reloadData()
         
@@ -265,13 +268,15 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
     
     func deleteCell(_ toDoItem: TodoItem, _ reloadTable: Bool = true) {
         fileCache.removeItem(withId: toDoItem.id)
-        do {
-            try fileCache.saveToFile()
-        } catch {
-            alert.title = "Что-то пошло не так"
-            alert.message = "Не получилось удалить задачу"
-            present(alert, animated: true)
-        }
+        //  do {
+        //try fileCache.saveToFile()
+        fileCache.saveToFile()
+        //        } catch {
+        //            alert.title = "Что-то пошло не так"
+        //            alert.message = "Не получилось удалить задачу"
+        //            present(alert, animated: true)
+        //        }
+        present(alert, animated: true)
         updateDoneTasks()
         if reloadTable { tableView.reloadData() }
         guard !fileCache.isDirty else {
@@ -296,7 +301,7 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
 
 extension ListOfTasksViewController: TaskCellDelegate {
     func changeToDoItem(_ toDoItem: TodoItem) async {
-         saveCell(toDoItem, isNewItem: false)
+        saveCell(toDoItem, isNewItem: false)
     }
 }
 
