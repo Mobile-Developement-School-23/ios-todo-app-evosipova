@@ -15,7 +15,7 @@ enum Importance: String {
 
 
 struct TodoItem {
-    let id: String
+    var id: String
     var text: String
     let importance: Importance
     var deadline: Date?

@@ -661,8 +661,8 @@
             filePath = "Cell/ListOfTasksViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "deleteCell(_:_:)"
             landmarkType = "7">
             <Locations>
@@ -709,8 +709,8 @@
             filePath = "Cell/ListOfTasksViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "deleteCell(_:_:)"
             landmarkType = "7">
             <Locations>

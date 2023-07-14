@@ -24,6 +24,9 @@
 		5E8E00282A57701C002CBAB5 /* NetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E00272A57701C002CBAB5 /* NetworkFetcher.swift */; };
 		5E8E002C2A577075002CBAB5 /* NetworkToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E002B2A577075002CBAB5 /* NetworkToDoItem.swift */; };
 		5E8E002E2A577088002CBAB5 /* RequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E002D2A577088002CBAB5 /* RequestProcessor.swift */; };
+		5EA37A712A6189A600B3E1DF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EA37A6F2A6189A600B3E1DF /* Model.xcdatamodeld */; };
+		5EA37A7C2A6198AA00B3E1DF /* Model+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA37A7A2A6198AA00B3E1DF /* Model+CoreDataClass.swift */; };
+		5EA37A7D2A6198AA00B3E1DF /* Model+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA37A7B2A6198AA00B3E1DF /* Model+CoreDataProperties.swift */; };
 		5EDD97EB2A438443008A2274 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EA2A438443008A2274 /* MyViewController.swift */; };
 		5EDD97ED2A438828008A2274 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EC2A438828008A2274 /* TaskViewController.swift */; };
 		5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD97EE2A446019008A2274 /* StatusSelection.swift */; };
@@ -68,6 +71,9 @@
 		5E8E00272A57701C002CBAB5 /* NetworkFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetcher.swift; sourceTree = "<group>"; };
 		5E8E002B2A577075002CBAB5 /* NetworkToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkToDoItem.swift; sourceTree = "<group>"; };
 		5E8E002D2A577088002CBAB5 /* RequestProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestProcessor.swift; sourceTree = "<group>"; };
+		5EA37A702A6189A600B3E1DF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		5EA37A7A2A6198AA00B3E1DF /* Model+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5EA37A7B2A6198AA00B3E1DF /* Model+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5EDD97EA2A438443008A2274 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		5EDD97EC2A438828008A2274 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		5EDD97EE2A446019008A2274 /* StatusSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSelection.swift; sourceTree = "<group>"; };
@@ -105,6 +111,8 @@
 		5E8D17B82A3BC1F800110BAA = {
 			isa = PBXGroup;
 			children = (
+				5EA37A7A2A6198AA00B3E1DF /* Model+CoreDataClass.swift */,
+				5EA37A7B2A6198AA00B3E1DF /* Model+CoreDataProperties.swift */,
 				5EA37A6E2A58942700B3E1DF /* Cell */,
 				5E8D17C32A3BC1F800110BAA /* ToDo */,
 				5E8D17DA2A3BC1FA00110BAA /* ToDoTests */,
@@ -125,6 +133,7 @@
 		5E8D17C32A3BC1F800110BAA /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				5EA37A6F2A6189A600B3E1DF /* Model.xcdatamodeld */,
 				5E8D17C42A3BC1F800110BAA /* AppDelegate.swift */,
 				5E8D17C62A3BC1F800110BAA /* SceneDelegate.swift */,
 				5E8D17F82A3BC22300110BAA /* TodoItem.swift */,
@@ -312,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EDD97F42A4C6ED9008A2274 /* ListOfTasksViewController.swift in Sources */,
+				5EA37A7C2A6198AA00B3E1DF /* Model+CoreDataClass.swift in Sources */,
 				5E8D17F92A3BC22300110BAA /* TodoItem.swift in Sources */,
 				5E8E00282A57701C002CBAB5 /* NetworkFetcher.swift in Sources */,
 				5EDD97F62A4F64A0008A2274 /* CustomTableViewCell.swift in Sources */,
@@ -319,10 +329,12 @@
 				5E8E002E2A577088002CBAB5 /* RequestProcessor.swift in Sources */,
 				5EE89A142A4F9380009F4FAD /* AddTaskCell.swift in Sources */,
 				5EDD97EF2A446019008A2274 /* StatusSelection.swift in Sources */,
+				5EA37A712A6189A600B3E1DF /* Model.xcdatamodeld in Sources */,
 				5E8D17C92A3BC1F800110BAA /* ViewController.swift in Sources */,
 				5E8D17C52A3BC1F800110BAA /* AppDelegate.swift in Sources */,
 				5E8E00262A576FAF002CBAB5 /* URLSession.swift in Sources */,
 				5EDD97F12A446280008A2274 /* UIView+Pin.swift in Sources */,
+				5EA37A7D2A6198AA00B3E1DF /* Model+CoreDataProperties.swift in Sources */,
 				5EDD97EB2A438443008A2274 /* MyViewController.swift in Sources */,
 				5E8D17F52A3BC21500110BAA /* FileCache.swift in Sources */,
 				5E8D17C72A3BC1F800110BAA /* SceneDelegate.swift in Sources */,
@@ -670,6 +682,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5EA37A6F2A6189A600B3E1DF /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5EA37A702A6189A600B3E1DF /* Model.xcdatamodel */,
+			);
+			currentVersion = 5EA37A702A6189A600B3E1DF /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5E8D17B92A3BC1F800110BAA /* Project object */;
 }
