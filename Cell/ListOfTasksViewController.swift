@@ -131,9 +131,6 @@ final class ListOfTasksViewController: UIViewController {
         loadTasks()
         registerCells()
         setupActivityIndicator()
-        //        Task{
-        //            try await networkFetcher.addItem(toDoItem: TodoItem(text: "hi", importance: .normal))
-        //        }
     }
     
     private func setupView() {
@@ -232,56 +229,6 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
     
     
     func saveCell(_ toDoItem: TodoItem, isNewItem: Bool)  {
-        //        fileCache.addItem(toDoItem)
-        //        do {
-        //            try fileCache.saveToFile(filename: "TodoItems")
-        //        } catch {
-        //            alert.title = "Что-то пошло не так"
-        //            alert.message = "Не получилось сохранить задачу"
-        //            present(alert, animated: true)
-        //        }
-        //        updateDoneTasks()
-        //        tableView.reloadData()
-        //
-        //        guard !fileCache.isDirty else {
-        //            updateTasks()
-        //            return
-        //        }
-        //
-        //        DispatchQueue.main.async { [weak self] in
-        //            self?.activityIndicator.startAnimating()
-        //        }
-        //
-        //
-        //        Task.init { @MainActor in
-        //            self.activityIndicator.startAnimating()
-        //            var retryCount = 0
-        //            let maxRetryAttempts = 5
-        //            var delay = 1.0
-        //            while retryCount < maxRetryAttempts {
-        //                do {
-        //                    if isNewItem {
-        //                        try await networkFetcher.addItem(toDoItem: toDoItem)
-        //                    } else {
-        //                        try await networkFetcher.modifyTask(toDoItem: toDoItem)
-        //                    }
-        //                    self.activityIndicator.stopAnimating()
-        //                    break
-        //                } catch {
-        //                    debugPrint(error)
-        //                    fileCache.isDirty = true
-        //                    retryCount += 1
-        //
-        //                    delay *= 2.0
-        //
-        //                    print(delay)
-        //
-        //                    await Task.sleep(UInt64(delay * 1_000_000_000))
-        //                    continue
-        //                }
-        //            }
-        //        }
-        
         fileCache.addItem(toDoItem)
         do {
             try fileCache.saveToFile(filename: "TodoItems")
@@ -302,7 +249,7 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
                 if isNewItem {
                     try await networkFetcher.addItem(toDoItem: toDoItem)
                 } else {
-                    try await networkFetcher.fetchTask(toDoItem: toDoItem) //.changeItem(toDoItem: toDoItem)
+                    try await networkFetcher.fetchTask(toDoItem: toDoItem)
                 }
             } catch {
                 debugPrint(error)
@@ -314,44 +261,8 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
     
     
     func deleteCell(_ toDoItem: TodoItem, _ reloadTable: Bool = true) {
-        //        fileCache.removeItem(withId: toDoItem.id)
-        //        do {
-        //            try fileCache.saveToFile(filename: "TodoItems")
-        //        } catch {
-        //            alert.title = "Что-то пошло не так"
-        //            alert.message = "Не получилось удалить задачу"
-        //            present(alert, animated: true)
-        //        }
-        //        updateDoneTasks()
-        //        if reloadTable { tableView.reloadData() }
         
-        
-        //        Task.init {
-        //            self.activityIndicator.startAnimating()
-        //            var retryCount = 0
-        //            let maxRetryAttempts = 5
-        //            var delay = 1.0
-        //            while retryCount < maxRetryAttempts {
-        //                do {
-        //                    try await networkFetcher.removeItem(toDoItem: toDoItem)
-        //                    self.activityIndicator.stopAnimating()
-        //                    if !fileCache.isDirty {
-        //                        updateTasks()
-        //                    }
-        //                    break
-        //                } catch {
-        //                    debugPrint(error)
-        //                    fileCache.isDirty = true
-        //                    retryCount += 1
-        //                    delay *= 2.0
-        //                    await Task.sleep(UInt64(delay * 1_000_000_000))
-        //                    continue
-        //                }
-        //            }
-        //        }
-        
-        
-        
+
         fileCache.removeItem(withId: toDoItem.id)
         do {
             try fileCache.saveToFile(filename: "TodoItems")
@@ -367,8 +278,6 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
             return
         }
         
-        
-        //if let toDoItem = fileCache.items.first(where: { $0.id == id }) {
         Task {
             do {
                 try await networkFetcher.removeItem(toDoItem: toDoItem)
@@ -377,7 +286,6 @@ extension ListOfTasksViewController: TaskViewControllerDelegate {
                 fileCache.isDirty = true
             }
         }
-        //  }
         
     }
     
